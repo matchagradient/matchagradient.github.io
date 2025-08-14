@@ -10,13 +10,13 @@ const cube = document.getElementById('cube');
 
         // Create floating dots
         function createFloatingDots() {
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 333; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'floating-dot';
                 dot.style.left = Math.random() * 100 + '%';
                 dot.style.top = Math.random() * 100 + 'vh'; // Start below viewport
-                dot.style.animationDelay = Math.random() * 10 + 's';
-                dot.style.animationDuration = (8 + Math.random() * 12) + 's'; // 8-20 seconds
+                // dot.style.animationDelay = Math.random() * 10 + 's';
+                dot.style.animationDuration = (1+ Math.random() * 12) + 's'; // 8-20 seconds
                 floatingElements.appendChild(dot);
             }
         }
