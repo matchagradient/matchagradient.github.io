@@ -82,3 +82,123 @@ const cube = document.getElementById('cube');
             mouseX = window.innerWidth / 2;
             mouseY = window.innerHeight / 2;
         });
+        
+        function downloadCVAsJSON() {
+            const cvData = {
+                personalInfo: {
+                    name: "Mike Wang",
+                    lastUpdated: new Date().toISOString(),
+                    exportedFrom: "DOM Parser",
+                    contact: parseContactInfo()
+                },
+                education: parseEducation(),
+                experience: parseExperience(),
+                skills: parseSkills()
+            };
+
+            const jsonString = JSON.stringify(cvData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'cv-data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function parseContactInfo() {
+            const contactSection = document.querySelector('.contact-info');
+            if (!contactSection) return {};
+
+            const contactLinks = contactSection.querySelectorAll('.contact-link');
+            const contact = {};
+
+            contactLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                const text = link.textContent.trim();
+
+                if (href.startsWith('mailto:')) {
+                    contact.email = href.replace('mailto:', '');
+                } else if (href.includes('linkedin.com')) {
+                    contact.linkedin = href;
+                } else if (href.includes('github.com')) {
+                    contact.github = href;
+                } else if (href.startsWith('tel:')) {
+                    contact.phone = href.replace('tel:', '');
+                } else {
+                    // Generic website/portfolio
+                    contact.website = href;
+                }
+            });
+
+            return contact;
+        }
+
+        function parseEducation() {
+            const educationSection = Array.from(document.querySelectorAll('.cv-section')).find(section => 
+                section.querySelector('h3')?.textContent.trim() === 'Education');
+            
+            if (!educationSection) return [];
+
+            const educationItems = educationSection.querySelectorAll('.cv-item');
+            return Array.from(educationItems).map(item => {
+                const degree = item.querySelector('h4')?.textContent.trim() || '';
+                const institution = item.querySelector('.institution')?.textContent.trim() || '';
+                const description = item.querySelector('p')?.textContent.trim() || '';
+                
+                return {
+                    degree,
+                    institution,
+                    description
+                };
+            });
+        }
+
+        function parseExperience() {
+            const experienceSection = Array.from(document.querySelectorAll('.cv-section')).find(section => 
+                section.querySelector('h3')?.textContent.includes('Experience'));
+            
+            if (!experienceSection) return [];
+
+            const experienceItems = experienceSection.querySelectorAll('.cv-item');
+            return Array.from(experienceItems).map(item => {
+                const company = item.querySelector('.company')?.textContent.trim() || '';
+                const title = item.querySelector('.job-title')?.textContent.trim() || '';
+                const location = item.querySelector('.location')?.textContent.trim() || '';
+                const dates = item.querySelector('.date')?.textContent.trim() || '';
+                const description = item.querySelector('p')?.textContent.trim() || '';
+                
+                return {
+                    company,
+                    title,
+                    location,
+                    dates,
+                    description
+                };
+            });
+        }
+
+        function parseSkills() {
+            const skillsSection = Array.from(document.querySelectorAll('.cv-section')).find(section => 
+                section.querySelector('h3')?.textContent.includes('Skills'));
+            
+            if (!skillsSection) return {};
+
+            const skillItems = skillsSection.querySelectorAll('.skill-item');
+            const skills = {};
+            
+            skillItems.forEach(item => {
+                const category = item.querySelector('h4')?.textContent.trim() || '';
+                const skillsText = item.querySelector('p')?.textContent.trim() || '';
+                const skillsArray = skillsText.split(',').map(skill => skill.trim()).filter(skill => skill);
+                
+                if (category && skillsArray.length > 0) {
+                    skills[category] = skillsArray;
+                }
+            });
+            
+            return skills;
+        }
