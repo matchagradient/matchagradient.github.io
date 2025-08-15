@@ -10,7 +10,7 @@ const cube = document.getElementById('cube');
 
         // Create floating dots
         function createFloatingDots() {
-            for (let i = 0; i < 333; i++) {
+            for (let i = 0; i < 88; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'floating-dot';
                 dot.style.left = Math.random() * 100 + '%';
@@ -88,7 +88,7 @@ const cube = document.getElementById('cube');
                 personalInfo: {
                     name: "Mike Wang",
                     lastUpdated: new Date().toISOString(),
-                    exportedFrom: "DOM Parser",
+                    exportedFrom: "Website",
                     contact: parseContactInfo()
                 },
                 education: parseEducation(),
@@ -102,7 +102,7 @@ const cube = document.getElementById('cube');
             
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'cv-data.json';
+            a.download = 'mikewang-cv-data.json';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
