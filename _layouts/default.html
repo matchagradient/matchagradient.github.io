@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mike Wang</title>
+        <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+        <script src="{{ '/assets/js/script.js' | relative_url }}" defer></script>
+        <link rel="icon" type="image/png" sizes="96x96" href="favicon.png">
+    </head>
+<body>
+        <!-- Interactive Cube Background -->
+        <div class="cube-background">
+            <div class="floating-elements" id="floatingElements"></div>
+            <div class="cube" id="cube">
+                <div class="cube-face front"></div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+            <div class="cursor-glow" id="cursorGlow"></div>
+        </div>
+        <nav>
+            <div class="nav-container">
+                <div class="logo"><a href="/index.html">Mike Wang</a></div>
+                <ul class="nav-links external-links">
+                    <li><a href="/collections.html">Collections</a></li>
+                </ul>
+        </nav>
+
+        {{ content }}
+</body>
+</html>

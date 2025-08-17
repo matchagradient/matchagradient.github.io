@@ -1,8 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mike Wang - Software Engineer</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/script.js" defer></script>
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 </head>
-
+<body>
 <!-- Interactive Cube Background -->
 <div class="cube-background">
     <div class="floating-elements" id="floatingElements"></div>
@@ -17,45 +23,23 @@
     <div class="cursor-glow" id="cursorGlow"></div>
 </div>
 
-<!-- Navigation -->
-    <!-- <nav>
-        <div class="nav-container">
-            <div class="logo">Mike Wang</div>
-            
-            <div class="nav-content">
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#cv">CV</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                
-                <ul class="nav-links external-links">
-                    <li><a href="projects.html">Projects</a></li>
-                </ul>
-            </div>
-            
-            <button class="mobile-toggle" onclick="toggleMobileMenu()">
-                ☰
-            </button>
-        </div> -->
-        <nav>
-            <div class="nav-container">
-                <div class="logo">Mike Wang</div>
-                
-                <div class="nav-content">
-                    <ul class="nav-links">
-                        <li><a href="#home" class="active">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#cv">CV</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <ul class="nav-links external-links">
-                <li><a href="collections.html">Collections</a></li>
+<nav>
+    <div class="nav-container">
+        <div class="logo">Mike Wang</div>
+        <div class="nav-content">
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#cv">CV</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-        </nav>
+        </div>
+    </div>
+    <ul class="nav-links external-links">
+        <li><a href="collections.html">Collections</a></li>
+    </ul>
+</nav>
+
 <!-- Hero Section -->
 <section id="home" class="hero">
     <div class="container">
@@ -75,9 +59,7 @@
         <div class="intro-grid">
             <div class="intro-text">
                 <p>I'm an innovative and adaptable software engineer with over a decade of experience building robust systems across AI, robotics, security, and telecom. From deploying telecom software to scaling warehouse automation, I thrive at the intersection of systems engineering and real-world impact, often partnering directly with clients to deliver reliable, high-performance solutions.</p>
-
                 <p>I specialize in designing scalable backend services, optimizing ML pipelines, and integrating complex systems across diverse environments. My experience includes customer-facing deployments, leading global teams, mentoring engineers, and spearheading initiatives that reduce errors and boost system uptime.</p>
-                
                 <p>Outside of work, I enjoy experimenting with SDR, flying drones, exploring open-source tools, and hiking around the Pacific Northwest. I'm constantly learning, iterating, and excited by what's next in tech and life.</p>
             </div>
             <div class="intro-image">
@@ -91,7 +73,6 @@
 <section id="cv" class="section">
     <div class="container">
         <h2 class="section-title">Curriculum Vitae</h2>
-
         <div class="cv-section">
             <h3>Professional Experience</h3>
             <div class="cv-item">
@@ -138,13 +119,11 @@
                 <div class="institution">University of Washington</div>
                 <p>Specialized in software systems design, algorithm optimization, and advanced data structures, with practical experience in building scalable applications.</p>
             </div>
-            
             <div class="cv-item">
                 <h4>Bachelor of Science in Economics</h4>
                 <div class="institution">University of Washington</div>
                 <p>Developed expertise in economic modeling, quantitative analysis, and market research, applying statistical methods to real-world financial and policy problems.</p>
             </div>
-            
             <div class="cv-item">
                 <h4>Minor in Mathematics</h4>
                 <div class="institution">University of Washington</div>
@@ -210,12 +189,10 @@
 
 <!-- Contact Section -->
 <section id="contact" class="section">
-    
     <div class="container">
         <div class="contact-header">
             <h2 class="section-title">Get In Touch</h2>
         </div>
-        
         <div class="contact-card">
             <div class="contact-info">
                 <a href="mailto:mikewang@uw.edu" class="contact-link">
@@ -225,7 +202,6 @@
                     </svg>
                     mikewang@uw.edu
                 </a>
-                
                 <a href="https://linkedin.com/in/mike-wang-18810042" target="_blank" class="contact-link">
                     <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 8C18.5 8 20.5 10 20.5 12.5V21H17V12.5C17 11.4 16.1 10.5 15 10.5S13 11.4 13 12.5V21H9.5V8H13V9.5C13.8 8.5 14.8 8 16 8Z" fill="currentColor"/>
@@ -234,7 +210,6 @@
                     </svg>
                     LinkedIn
                 </a>
-
                 <a href="https://github.com/matchagradient" target="_blank" class="contact-link">
                     <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C6.477 2 2 6.484 2 12.017C2 16.624 5.865 20.426 10.839 21.765C11.339 21.85 11.521 21.543 11.521 21.28C11.521 21.044 11.511 20.242 11.506 19.423C8.258 20.037 7.643 17.96 7.643 17.96C7.192 16.806 6.508 16.501 6.508 16.501C5.571 15.87 6.579 15.883 6.579 15.883C7.617 15.955 8.176 16.93 8.176 16.93C9.097 18.496 10.547 18.034 11.541 17.777C11.631 17.095 11.905 16.632 12.207 16.382C9.632 16.128 6.934 15.154 6.934 11.097C6.934 10.014 7.32 9.131 8.197 8.443C8.09 8.189 7.729 7.044 8.297 5.641C8.297 5.641 9.162 5.374 11.497 6.832C12.339 6.612 13.234 6.502 14.126 6.498C15.017 6.502 15.912 6.612 16.755 6.832C19.088 5.374 19.952 5.641 19.952 5.641C20.521 7.044 20.16 8.189 20.052 8.443C20.93 9.131 21.314 10.014 21.314 11.097C21.314 15.164 18.612 16.125 16.031 16.373C16.411 16.701 16.743 17.349 16.743 18.338C16.743 19.748 16.73 20.887 16.73 21.28C16.73 21.546 16.909 21.856 17.416 21.763C22.391 20.421 26.251 16.622 26.251 12.017C26.251 6.484 21.776 2 16.251 2H12Z" fill="currentColor"/>
@@ -246,9 +221,10 @@
     </div>
 </section>
 
-
 <footer class="footer">
     <div class="container">
         <p class="copyright">&copy; 2025 Mike Wang. All rights reserved.</p>
     </div>
 </footer>
+</body>
+</html>
