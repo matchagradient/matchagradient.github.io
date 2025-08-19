@@ -8,7 +8,7 @@ const cube = document.getElementById('cube');
         let autoRotation = 0;
         // Create floating dots
         function createFloatingDots() {
-            for (let i = 0; i < 88; i++) {
+            for (let i = 0; i < 128; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'floating-dot';
                 dot.style.left = Math.random() * 100 + '%';
@@ -165,3 +165,30 @@ const cube = document.getElementById('cube');
             });
             return skills;
         }
+
+// Mobile menu toggle functionality
+const mobileToggle = document.querySelector('.mobile-toggle');
+const navContent = document.querySelector('.nav-content');
+const hamburger = document.querySelector('.hamburger');
+
+mobileToggle.addEventListener('click', function() {
+    navContent.classList.toggle('active');
+    hamburger.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+const navLinks = document.querySelectorAll('.nav-links a');
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        navContent.classList.remove('active');
+        hamburger.classList.remove('active');
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('nav')) {
+        navContent.classList.remove('active');
+        hamburger.classList.remove('active');
+    }
+})
