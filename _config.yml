@@ -2,4 +2,8 @@ title: Mike Wang
 description: Mike's personal site
 baseurl: "" # leave blank for root
 markdown: kramdown
-theme: minima # optional, if you want a theme
+#theme: minima # optional, if you want a theme
+
+#permalink: /:year/:month/:day/:title.html
+permalink: /:title.html
+
