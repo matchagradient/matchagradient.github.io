@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Sphere Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .sphere-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 60px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .controls {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        input[type="number"], input[type="range"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            margin: 0 5px;
+        }
+        
+        button:hover {
+            background: #555;
+        }
+        
+        .svg-output {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .svg-display {
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+            background: white;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <svg class="sphere-background" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+        <defs></defs>
+        <g id="sphereContainer"></g>
+    </svg>
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><a href="/index.html">Mike Wang</a></div>
+            <ul class="nav-links external-links">
+                <li><a href="/collections.html">Collections</a></li>
+            </ul>
+    </nav>
+    <div class="content">
+        <h1>SVG Sphere Generator</h1>
+        <p>Build random SVG spheres and customize the color, opacity, and size using controls.</p>
+        
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="cubeCount">Number of Spheres:</label>
+                    <input type="number" id="cubeCount" min="1" max="200" value="18">
+                </div>
+                <div></div>
+                <div class="control-item">
+                    <label for="minSize">Min Size:</label>
+                    <input type="number" id="minSize" min="20" max="200" value="30">
+                </div>
+                <div class="control-item">
+                    <label for="maxSize">Max Size:</label>
+                    <input type="number" id="maxSize" min="20" max="200" value="100">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="minOpacity">Min Transparency:</label>
+                    <input type="range" id="minOpacity" min="0.1" max="1" step="0.1" value="0.2">
+                    <span id="minOpacityValue">0.2</span>
+                </div>
+                <div class="control-item">
+                    <label for="maxOpacity">Max Transparency:</label>
+                    <input type="range" id="maxOpacity" min="0.1" max="1" step="0.1" value="0.7">
+                    <span id="maxOpacityValue">0.7</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="color1">Color 1:</label>
+                    <input type="color" id="color1" value="#ff0000">
+                </div>
+                <div class="control-item">
+                    <label for="color2">Color 2:</label>
+                    <input type="color" id="color2" value="#00ff00">
+                </div>
+                <div class="control-item">
+                    <label for="color3">Color 3:</label>
+                    <input type="color" id="color3" value="#0000ff">
+                </div>
+                <div class="control-item">
+                    <label for="color4">Color 4:</label>
+                    <input type="color" id="color4" value="#ffff00">
+                </div>
+                <div class="control-item">
+                    <label for="color5">Color 5:</label>
+                    <input type="color" id="color5" value="#ff00ff">
+                </div>
+                <div class="control-item">
+                    <label for="color6">Color 6:</label>
+                    <input type="color" id="color6" value="#00ffff">
+                </div>
+            </div>
+
+            <div class="control-group" style="margin-top:10px;">
+            <div class="control-item">
+                <label>Preset Colors:</label>
+                <div>
+                    <input type="radio" name="colorPreset" id="presetGray" value="gray">
+                    <label for="presetGray">Gray Scale</label>
+                </div>
+                <div>
+                    <input type="radio" name="colorPreset" id="presetColorful" value="colorful">
+                    <label for="presetColorful">Colorful</label>
+                </div>
+                <div>
+                    <input type="radio" name="colorPreset" id="presetRandom" value="random">
+                    <label for="presetRandom">Random</label>
+                </div>
+            </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="generateSpheres()">Generate New Spheres</button>
+                <button onclick="copyToClipboard()">Copy SVG to Clipboard</button>
+            </div>
+        </div>
+        
+        <div class="svg-output">
+            <h3>Preview</h3>
+            <div class="svg-display" id="svgDisplay"></div>
+            
+            <h3>SVG Code Output</h3>
+            <textarea id="svgOutput" readonly></textarea>
+            <button onclick="copyToClipboard()" style="margin-top: 10px;">Copy SVG Code</button>
+        </div>    
+    </div>
+
+    <script>
+    document.getElementById('minOpacity').addEventListener('input', function() {
+        document.getElementById('minOpacityValue').textContent = this.value;
+    });
+    document.getElementById('maxOpacity').addEventListener('input', function() {
+        document.getElementById('maxOpacityValue').textContent = this.value;
+    });
+    
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+    
+    function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    function getColorPalette() {
+        return [
+            document.getElementById('color1').value,
+            document.getElementById('color2').value,
+            document.getElementById('color3').value,
+            document.getElementById('color4').value,
+            document.getElementById('color5').value,
+            document.getElementById('color6').value
+        ];
+    }
+    
+    function createSphere(cx, cy, radius, color, opacity) {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const defs = document.querySelector('defs');
+    
+        // Unique gradient ID
+        const gradId = `grad-${Math.random().toString(36).substr(2, 9)}`;
+    
+        const radialGrad = document.createElementNS(svgNS, 'radialGradient');
+        radialGrad.setAttribute('id', gradId);
+        radialGrad.setAttribute('cx', '30%');
+        radialGrad.setAttribute('cy', '30%');
+        radialGrad.setAttribute('r', '70%');
+        radialGrad.setAttribute('fx', '30%');
+        radialGrad.setAttribute('fy', '30%');
+    
+        const stop1 = document.createElementNS(svgNS, 'stop');
+        stop1.setAttribute('offset', '0%');
+        stop1.setAttribute('stop-color', color);
+        stop1.setAttribute('stop-opacity', opacity);
+    
+        const stop2 = document.createElementNS(svgNS, 'stop');
+        stop2.setAttribute('offset', '100%');
+        stop2.setAttribute('stop-color', '#000000');
+        stop2.setAttribute('stop-opacity', 0.2 * opacity); // shadow
+    
+        radialGrad.appendChild(stop1);
+        radialGrad.appendChild(stop2);
+        defs.appendChild(radialGrad);
+    
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', cx);
+        circle.setAttribute('cy', cy);
+        circle.setAttribute('r', radius);
+        circle.setAttribute('fill', `url(#${gradId})`);
+        circle.setAttribute('stroke', 'rgba(0,0,0,0.1)');
+        circle.setAttribute('stroke-width', '0.5');
+    
+        return circle;
+    }
+    
+    function generateSpheres() {
+        const container = document.getElementById('sphereContainer');
+        container.innerHTML = '';
+        document.querySelector('defs').innerHTML = ''; // clear previous gradients
+    
+        const sphereCount = parseInt(document.getElementById('cubeCount').value);
+        const minSize = parseInt(document.getElementById('minSize').value);
+        const maxSize = parseInt(document.getElementById('maxSize').value);
+        const minOpacity = parseFloat(document.getElementById('minOpacity').value);
+        const maxOpacity = parseFloat(document.getElementById('maxOpacity').value);
+        const colors = getColorPalette();
+    
+        for (let i = 0; i < sphereCount; i++) {
+            const cx = random(50, 1150);
+            const cy = random(50, 750);
+            const radius = randomInt(minSize / 2, maxSize / 2);
+            const color = colors[randomInt(0, colors.length - 1)];
+            const opacity = random(minOpacity, maxOpacity);
+    
+            const sphere = createSphere(cx, cy, radius, color, opacity);
+            container.appendChild(sphere);
+        }
+    
+        updateSVGOutput();
+    }
+    
+    function updateSVGOutput() {
+        const svg = document.querySelector('.sphere-background');
+        const svgClone = svg.cloneNode(true);
+        svgClone.classList.remove('sphere-background');
+        svgClone.style.width = '100%';
+        svgClone.style.height = '300px';
+        svgClone.style.border = '1px solid #ccc';
+    
+        const svgDisplay = document.getElementById('svgDisplay');
+        svgDisplay.innerHTML = '';
+        svgDisplay.appendChild(svgClone);
+    
+        const svgOutput = document.getElementById('svgOutput');
+        const serializer = new XMLSerializer();
+        const svgString = serializer.serializeToString(svg);
+    
+        const formattedSVG = svgString
+            .replace(/></g, '>\n<')
+            .replace(/(\s+)(\w+="[^"]*")/g, '\n  $2')
+            .split('\n')
+            .map(line => line.trim())
+            .filter(line => line.length > 0)
+            .join('\n');
+    
+        svgOutput.value = formattedSVG;
+    }
+    
+    function copyToClipboard() {
+        const svgOutput = document.getElementById('svgOutput');
+        svgOutput.select();
+        svgOutput.setSelectionRange(0, 99999);
+    
+        try {
+            document.execCommand('copy');
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.style.background = '#4CAF50';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '#333';
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    }
+    
+    // Preset color definitions
+    const colorPresets = {
+        gray: ['#111111', '#333333', '#555555', '#777777', '#999999', '#BBBBBB'],
+        colorful: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+    };
+    
+    // Update the color inputs when a preset is selected
+    document.querySelectorAll('input[name="colorPreset"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            let colors;
+            if (e.target.value === 'gray') {
+                colors = colorPresets.gray;
+            } else if (e.target.value === 'colorful') {
+                colors = colorPresets.colorful;
+            } else { // random
+                colors = Array.from({length: 6}, () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'));
+            }
+            // Apply colors to the six inputs
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`color${i}`).value = colors[i-1];
+            }
+            generateSpheres(); // regenerate spheres with new colors
+        });
+    });
+    
+    // Generate spheres on page load
+    generateSpheres();
+    </script>
+    </body>
+    </html>

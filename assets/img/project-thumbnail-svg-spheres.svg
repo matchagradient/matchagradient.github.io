@@ -1,0 +1,515 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+class="sphere-background"
+viewBox="0 0 1200 800"
+preserveAspectRatio="xMidYMid slice">
+<defs>
+<radialGradient
+id="grad-dtagqh1nf"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ffff00" stop-opacity="0.416549156339199"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.0833098312678398"/>
+</radialGradient>
+<radialGradient
+id="grad-c5krm4xe3"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ff00" stop-opacity="0.333721565225953"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.0667443130451906"/>
+</radialGradient>
+<radialGradient
+id="grad-ib7l7azqg"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff0000" stop-opacity="0.3843868889719467"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.07687737779438936"/>
+</radialGradient>
+<radialGradient
+id="grad-gdsr2c2go"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ff00" stop-opacity="0.497721003174851"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.09954420063497021"/>
+</radialGradient>
+<radialGradient
+id="grad-9dvgbnqpf"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.1034614536771895"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.0206922907354379"/>
+</radialGradient>
+<radialGradient
+id="grad-7cjlrkq3w"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ffff00" stop-opacity="0.459241279277397"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.0918482558554794"/>
+</radialGradient>
+<radialGradient
+id="grad-7sdlujbrx"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ffff00" stop-opacity="0.37775956752763495"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.075551913505527"/>
+</radialGradient>
+<radialGradient
+id="grad-idh1vd03s"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ffff" stop-opacity="0.3039603161901821"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.060792063238036424"/>
+</radialGradient>
+<radialGradient
+id="grad-r4e2q29l0"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff00ff" stop-opacity="0.3219191815626157"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.06438383631252313"/>
+</radialGradient>
+<radialGradient
+id="grad-1axfrbnct"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.3645077628353047"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.07290155256706095"/>
+</radialGradient>
+<radialGradient
+id="grad-3x9u5fvmm"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ffff" stop-opacity="0.47984723552244146"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.09596944710448829"/>
+</radialGradient>
+<radialGradient
+id="grad-rmumb2t4n"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff0000" stop-opacity="0.21128453054548985"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.04225690610909797"/>
+</radialGradient>
+<radialGradient
+id="grad-gdki0aejj"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ffff" stop-opacity="0.34288064026995363"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.06857612805399073"/>
+</radialGradient>
+<radialGradient
+id="grad-zfojl9g3r"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff0000" stop-opacity="0.32392472463353683"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.06478494492670737"/>
+</radialGradient>
+<radialGradient
+id="grad-8lnikedkn"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff0000" stop-opacity="0.34685123658374506"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.06937024731674901"/>
+</radialGradient>
+<radialGradient
+id="grad-e8wz82t0l"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ffff" stop-opacity="0.44199521986986134"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.08839904397397227"/>
+</radialGradient>
+<radialGradient
+id="grad-kv1zdg9ho"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.25418661221832123"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.05083732244366425"/>
+</radialGradient>
+<radialGradient
+id="grad-hqwl86djs"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff0000" stop-opacity="0.40491527775785585"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.08098305555157118"/>
+</radialGradient>
+<radialGradient
+id="grad-vhxb0spcx"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff00ff" stop-opacity="0.41566424266223034"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.08313284853244607"/>
+</radialGradient>
+<radialGradient
+id="grad-7ohxb5rvk"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.49176058085551433"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.09835211617110287"/>
+</radialGradient>
+<radialGradient
+id="grad-6gutnuk7k"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ffff" stop-opacity="0.357350050824652"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.0714700101649304"/>
+</radialGradient>
+<radialGradient
+id="grad-d3m1q9oji"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.4610059631700726"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.09220119263401452"/>
+</radialGradient>
+<radialGradient
+id="grad-ghphmz87c"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ff0000" stop-opacity="0.3527838525925435"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.07055677051850871"/>
+</radialGradient>
+<radialGradient
+id="grad-dcbc03e9w"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ff00" stop-opacity="0.4836022520837081"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.09672045041674163"/>
+</radialGradient>
+<radialGradient
+id="grad-zczbf0jcv"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#ffff00" stop-opacity="0.160632934476295"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.032126586895259004"/>
+</radialGradient>
+<radialGradient
+id="grad-83npddj5t"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#00ffff" stop-opacity="0.4555203757538887"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.09110407515077774"/>
+</radialGradient>
+<radialGradient
+id="grad-ly8l6stb6"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.3701090576625359"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.07402181153250718"/>
+</radialGradient>
+<radialGradient
+id="grad-s18ncl6rb"
+cx="30%"
+cy="30%"
+r="70%"
+fx="30%"
+fy="30%">
+<stop
+offset="0%" stop-color="#0000ff" stop-opacity="0.10062463357178442"/>
+<stop
+offset="100%" stop-color="#000000" stop-opacity="0.020124926714356884"/>
+</radialGradient>
+</defs>
+<g
+id="sphereContainer">
+<circle
+cx="330.69994105482675"
+cy="314.8004685533676"
+r="86"
+fill="url(#grad-dtagqh1nf)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="249.4756196775319"
+cy="314.47110448564075"
+r="96"
+fill="url(#grad-c5krm4xe3)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="390.1938206179631"
+cy="145.83215230013815"
+r="88"
+fill="url(#grad-ib7l7azqg)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="254.81833442004387"
+cy="414.0539898185293"
+r="38"
+fill="url(#grad-gdsr2c2go)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="68.2079071820849"
+cy="319.5327407545876"
+r="68"
+fill="url(#grad-9dvgbnqpf)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="1026.1938814124742"
+cy="445.4994719644187"
+r="90"
+fill="url(#grad-7cjlrkq3w)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="852.0854425186222"
+cy="584.0366139792718"
+r="55"
+fill="url(#grad-7sdlujbrx)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="153.18579455497263"
+cy="211.98327013025218"
+r="85"
+fill="url(#grad-idh1vd03s)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="108.8772128002985"
+cy="90.45482337158525"
+r="91"
+fill="url(#grad-r4e2q29l0)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="314.37929817692975"
+cy="618.1454465876031"
+r="21"
+fill="url(#grad-1axfrbnct)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="485.6036720666161"
+cy="699.6646111771468"
+r="88"
+fill="url(#grad-3x9u5fvmm)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="58.65655061393454"
+cy="254.69788641374564"
+r="69"
+fill="url(#grad-rmumb2t4n)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="129.08234915123398"
+cy="66.1099168009458"
+r="47"
+fill="url(#grad-gdki0aejj)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="957.0167372378804"
+cy="194.23065236870704"
+r="51"
+fill="url(#grad-zfojl9g3r)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="269.1278102472736"
+cy="565.8724929981647"
+r="97"
+fill="url(#grad-8lnikedkn)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="631.6553795235563"
+cy="466.1959521385605"
+r="71"
+fill="url(#grad-e8wz82t0l)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="1126.8794175726136"
+cy="239.0874264937502"
+r="78"
+fill="url(#grad-kv1zdg9ho)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="1004.3471307571064"
+cy="741.054761450772"
+r="38"
+fill="url(#grad-hqwl86djs)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="162.97493208863824"
+cy="241.07322596596674"
+r="68"
+fill="url(#grad-vhxb0spcx)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="80.40464893066364"
+cy="441.91103457321907"
+r="46"
+fill="url(#grad-7ohxb5rvk)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="770.9532098496059"
+cy="539.6982185455084"
+r="100"
+fill="url(#grad-6gutnuk7k)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="993.8547678163881"
+cy="723.460006750879"
+r="47"
+fill="url(#grad-d3m1q9oji)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="1147.3311421423116"
+cy="176.63562093837828"
+r="23"
+fill="url(#grad-ghphmz87c)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="914.390352650299"
+cy="207.41319255581456"
+r="64"
+fill="url(#grad-dcbc03e9w)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="434.25900221561"
+cy="144.57160251972107"
+r="53"
+fill="url(#grad-zczbf0jcv)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="792.5531133971699"
+cy="74.64044798246712"
+r="78"
+fill="url(#grad-83npddj5t)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="835.1700385820527"
+cy="443.7409880538606"
+r="40"
+fill="url(#grad-ly8l6stb6)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+<circle
+cx="95.34984236860213"
+cy="523.3850196371035"
+r="96"
+fill="url(#grad-s18ncl6rb)"
+stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+</g>
+</svg>
