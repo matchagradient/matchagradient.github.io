@@ -503,7 +503,6 @@ nav {
     padding: 30px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-
 }
 
 .project-item:hover {
@@ -563,7 +562,8 @@ nav {
 
 .project-thumb {
     width: 100%;
-    height: auto;       /* keeps proportions */
+    height: 200px;       /* pick a fixed height */
+    object-fit: cover;   /* crops while maintaining aspect ratio */
     border-radius: 8px; /* optional rounded corners */
     margin-bottom: 0.5rem;
   }
