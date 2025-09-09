@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyapunov Fractal Explorer</title>
+    <title>Barnsley Fern Explorer</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <style>
         * {
@@ -15,18 +15,55 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #0a0a0a;
             color: #ffffff;
-            overflow-x: hidden;
-        }
-        .interactive-section {
             position: relative;
-            height: 70vh;
-            min-height: 500px;
-            background: #000;
-            overflow: hidden;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .logo a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #22c55e;
+        }
+        #canvas-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
         }
         #canvas {
             display: block;
             cursor: grab;
+            background: #000;
             width: 100%;
             height: 100%;
         }
@@ -35,7 +72,7 @@
         }
         .controls {
             position: absolute;
-            top: 20px;
+            top: 80px;
             right: 20px;
             background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(10px);
@@ -44,7 +81,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
             min-width: 200px;
-            max-height: calc(70vh - 40px);
+            max-height: calc(100vh - 120px);
             overflow-y: auto;
             z-index: 10;
         }
@@ -107,9 +144,9 @@
         }
         .reset-btn {
             width: 100%;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            color: #3b82f6;
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #22c55e;
             padding: 12px;
             border-radius: 8px;
             cursor: pointer;
@@ -118,7 +155,7 @@
             margin-bottom: 20px;
         }
         .reset-btn:hover {
-            background: rgba(59, 130, 246, 0.3);
+            background: rgba(34, 197, 94, 0.3);
             transform: translateY(-1px);
         }
         .info {
@@ -153,23 +190,23 @@
             width: 24px;
             height: 24px;
             border: 2px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #3b82f6;
+            border-top-color: #22c55e;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        .color-scheme, .locations, .export-section, .sequence-controls {
+        .color-scheme, .locations, .export-section {
             margin-bottom: 20px;
         }
-        .color-scheme label, .locations label, .export-section label, .sequence-controls label {
+        .color-scheme label, .locations label, .export-section label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
         }
-        .color-scheme select, .locations select, .sequence-controls select {
+        .color-scheme select, .locations select {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -179,22 +216,8 @@
             cursor: pointer;
             font-size: 14px;
         }
-        .color-scheme select option, .locations select option, .sequence-controls select option {
+        .color-scheme select option, .locations select option {
             background: #1a1a1a;
-        }
-        .sequence-input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-        .sequence-input:focus {
-            outline: none;
-            border-color: rgba(59, 130, 246, 0.5);
         }
         .performance-controls {
             margin-bottom: 20px;
@@ -246,50 +269,47 @@
         .notification.show {
             opacity: 1;
         }
-        .sequence-help {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 5px;
-        }
         
-        /* Content section styles */
-        .content-section {
-            padding: 60px 20px;
+        /* Introduction section styles */
+        .introduction {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 60px 20px;
+            background: #111;
         }
-        .content-section h1 {
-            font-size: 36px;
-            margin-bottom: 24px;
+        .introduction h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
             color: #fff;
             font-weight: 700;
         }
-        .content-section h2 {
+        .introduction h2 {
             font-size: 28px;
-            margin: 40px 0 20px;
-            color: #fff;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: #22c55e;
             font-weight: 600;
         }
-        .content-section p {
+        .introduction p {
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.8);
         }
-        .content-section .highlight {
-            color: #3b82f6;
+        .introduction .highlight {
+            color: #22c55e;
             font-weight: 500;
         }
-        .feature-grid {
+        .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin: 40px 0;
+            margin-top: 40px;
         }
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            padding: 24px;
+            padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
@@ -298,22 +318,33 @@
             transform: translateY(-5px);
         }
         .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #3b82f6;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #fff;
         }
         .feature-card p {
             font-size: 16px;
-            margin-bottom: 0;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .formula {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #22c55e;
+            overflow-x: auto;
         }
         
         @media (max-width: 640px) {
             .controls {
-                top: 10px;
+                top: 70px;
                 right: 10px;
                 padding: 15px;
                 min-width: 160px;
-                max-height: calc(70vh - 20px);
+                max-height: calc(100vh - 90px);
             }
             .direction-btn {
                 width: 35px;
@@ -324,34 +355,29 @@
                 padding: 8px;
                 font-size: 14px;
             }
-            .content-section {
-                padding: 40px 15px;
+            .introduction h1 {
+                font-size: 32px;
             }
-            .content-section h1 {
-                font-size: 28px;
-            }
-            .content-section h2 {
+            .introduction h2 {
                 font-size: 24px;
             }
-            .content-section p {
+            .introduction p {
                 font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <svg class="cube-background" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-        <g id="cubeContainer"></g>
-    </svg>
     <nav>
         <div class="nav-container">
             <div class="logo"><a href="/index.html">Mike Wang</a></div>
             <ul class="nav-links external-links">
                 <li><a href="/collections.html">Collections</a></li>
             </ul>
+        </div>
     </nav>
     
-    <div class="interactive-section">
+    <div id="canvas-container">
         <canvas id="canvas"></canvas>
         
         <div class="loading" id="loading">
@@ -359,7 +385,7 @@
             <span>Rendering...</span>
         </div>
         <div class="controls">
-            <h2>Lyapunov Fractal Explorer</h2>
+            <h2>Barnsley Fern Explorer</h2>
             
             <div class="direction-controls">
                 <div></div>
@@ -377,49 +403,34 @@
                 <button class="zoom-btn" id="zoomOut">Zoom Out</button>
             </div>
             <button class="reset-btn" id="resetView">Reset View</button>
-            <div class="sequence-controls">
-                <label for="sequencePattern">Sequence Pattern</label>
-                <select id="sequencePattern">
-                    <option value="ab">ab</option>
-                    <option value="aab">aab</option>
-                    <option value="abb">abb</option>
-                    <option value="aba">aba</option>
-                    <option value="aabb">aabb</option>
-                    <option value="abab">abab</option>
-                    <option value="aabbb">aabbb</option>
-                    <option value="aaab">aaab</option>
-                </select>
-                <div class="sequence-help">Pattern alternates between 'a' and 'b' parameters</div>
-            </div>
             <div class="locations">
-                <label for="locationSelect">Interesting Locations</label>
+                <label for="locationSelect">Interesting Views</label>
                 <select id="locationSelect">
-                    <option value="">Select a location...</option>
-                    <option value="default">Default View</option>
-                    <option value="chaos">Chaos Region</option>
-                    <option value="stability">Stability Island</option>
-                    <option value="transition">Transition Zone</option>
-                    <option value="spiral">Spiral Pattern</option>
-                    <option value="bifurcation">Bifurcation Point</option>
+                    <option value="">Select a view...</option>
+                    <option value="full">Full Fern</option>
+                    <option value="stem">Stem Detail</option>
+                    <option value="leaf">Leaf Pattern</option>
+                    <option value="fractal">Fractal Edge</option>
+                    <option value="symmetry">Symmetry View</option>
                 </select>
             </div>
             <div class="color-scheme">
                 <label for="colorScheme">Color Scheme</label>
                 <select id="colorScheme">
-                    <option value="classic">Classic</option>
-                    <option value="fire">Fire</option>
+                    <option value="classic">Classic Green</option>
+                    <option value="autumn">Autumn</option>
+                    <option value="monochrome">Monochrome</option>
+                    <option value="rainbow">Rainbow</option>
                     <option value="ocean">Ocean</option>
-                    <option value="psychedelic">Psychedelic</option>
-                    <option value="grayscale">Grayscale</option>
                 </select>
             </div>
             <div class="performance-controls">
-                <label for="quality">Quality vs Performance</label>
+                <label for="quality">Point Density</label>
                 <input type="range" id="quality" class="quality-slider" min="1" max="5" value="3">
                 <div class="quality-labels">
-                    <span>Fast</span>
-                    <span>Balanced</span>
-                    <span>High Quality</span>
+                    <span>Low</span>
+                    <span>Medium</span>
+                    <span>High</span>
                 </div>
             </div>
             <div class="export-section">
@@ -430,85 +441,94 @@
                     <span class="info-label">Zoom:</span> <span id="zoomLevel">1.0x</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Center:</span> <span id="centerCoords">(2.5, 2.5)</span>
+                    <span class="info-label">Points:</span> <span id="pointCount">50,000</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Iterations:</span> <span id="iterations">100</span>
+                    <span class="info-label">Iterations:</span> <span id="iterations">50,000</span>
                 </div>
             </div>
         </div>
         <div class="notification" id="notification"></div>
     </div>
     
-    <div class="content-section">
-        <h1>Exploring Lyapunov Fractals</h1>
+    <section class="introduction">
+        <h1>The Barnsley Fern</h1>
         <p>
-            <a href="https://en.wikipedia.org/wiki/Lyapunov_fractal">Lyapunov fractal</a>
-            are a fascinating class of mathematical objects that visualize the stability of dynamic systems. 
-            Named after the Russian mathematician Aleksandr Lyapunov, these fractals are generated by calculating the 
-            <span class="highlight">Lyapunov exponent</span> for each point in a parameter space.
-        </p>
-        <p>
-            The interactive explorer above allows you to navigate through the complex landscape of the Lyapunov fractal. 
-            Each color represents a different level of stability in the system - blue regions indicate stability, while 
-            red regions represent chaos. The patterns you see emerge from the simple mathematical rules governing 
-            the system's behavior.
+            The <span class="highlight">Barnsley Fern</span> is a remarkable fractal that mimics the appearance of a natural fern. 
+            Created by mathematician Michael Barnsley, it's generated using an iterated function system (IFS) that applies 
+            affine transformations with specific probabilities. Unlike the Mandelbrot Set, which is based on complex numbers, 
+            the Barnsley Fern is created through a simple but elegant algorithm.
         </p>
         
-        <h2>Understanding the Mathematics</h2>
+        <div class="formula">
+            f₁(x,y) = (0, 0.16y) with probability 0.01<br>
+            f₂(x,y) = (0.85x + 0.04y, -0.04x + 0.85y + 1.6) with probability 0.85<br>
+            f₃(x,y) = (0.2x - 0.26y, 0.23x + 0.22y + 1.6) with probability 0.07<br>
+            f₄(x,y) = (-0.15x + 0.28y, 0.26x + 0.24y + 0.44) with probability 0.07
+        </div>
+        
         <p>
-            The Lyapunov exponent measures the rate of divergence of infinitesimally close trajectories in a dynamic system. 
-            A negative exponent indicates stability (trajectories converge), while a positive exponent indicates chaos 
-            (trajectories diverge exponentially).
+            Starting with a point at the origin (0,0), the algorithm repeatedly applies one of these four transformations, 
+            chosen at random according to their probabilities. After thousands of iterations, the points form the intricate 
+            pattern of a fern, demonstrating how simple mathematical rules can create complex, natural-looking structures.
+        </p>
+        
+        <h2>Mathematical Beauty</h2>
+        <p>
+            What makes the Barnsley Fern fascinating is its <span class="highlight">self-similar structure</span>. Each leaflet 
+            of the fern is a miniature copy of the entire fern, and each leaflet of those leaflets is also a copy, and so on. 
+            This recursive property is a hallmark of fractals and appears throughout nature in structures like ferns, trees, 
+            coastlines, and clouds.
         </p>
         <p>
-            In this visualization, we're exploring the logistic map with alternating parameters. The sequence pattern 
-            (like "ab" or "aab") determines how the parameters alternate during the calculation. This creates the 
-            intricate patterns and structures you see in the fractal.
+            The interactive explorer above allows you to examine this fractal in detail. You can zoom in to see the self-similar 
+            patterns at different scales, pan around to explore different parts of the fern, and adjust the visualization to 
+            highlight different aspects of its structure.
         </p>
         
         <h2>Features of the Explorer</h2>
-        <div class="feature-grid">
+        <div class="features">
             <div class="feature-card">
                 <h3>Interactive Navigation</h3>
-                <p>Click and drag to pan around the fractal, use the zoom controls or mouse wheel to explore details at different scales.</p>
+                <p>Use your mouse to drag and pan around the fern, scroll to zoom in and out, or use the control buttons for precise navigation.</p>
             </div>
             <div class="feature-card">
-                <h3>Sequence Patterns</h3>
-                <p>Experiment with different sequence patterns to see how they affect the fractal's structure and appearance.</p>
+                <h3>Interesting Views</h3>
+                <p>Jump to pre-selected views that highlight different aspects of the fern, from the overall structure to detailed leaf patterns.</p>
             </div>
             <div class="feature-card">
-                <h3>Interesting Locations</h3>
-                <p>Jump to predefined locations that showcase particularly interesting features of the fractal landscape.</p>
+                <h3>Customizable Visualization</h3>
+                <p>Choose from different color schemes to visualize the fern in unique ways, from classic green to vibrant rainbow colors.</p>
             </div>
             <div class="feature-card">
-                <h3>Color Schemes</h3>
-                <p>Choose from various color schemes to highlight different aspects of the fractal's structure.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Quality Control</h3>
-                <p>Adjust the quality-performance balance to suit your device's capabilities and your need for detail.</p>
+                <h3>Point Density Control</h3>
+                <p>Adjust the number of points used to render the fern, balancing between rendering speed and visual detail.</p>
             </div>
             <div class="feature-card">
                 <h3>Export Images</h3>
-                <p>Capture your favorite views of the fractal as high-quality images for further study or sharing.</p>
+                <p>Capture and save your favorite views of the Barnsley Fern as high-quality PNG images.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Real-time Information</h3>
+                <p>Monitor your current zoom level, point count, and iteration count as you explore the fractal.</p>
             </div>
         </div>
         
-        <h2>The Beauty of Chaos</h2>
+        <h2>Applications and Significance</h2>
         <p>
-            Lyapunov fractals exemplify the principle of "order in chaos" - complex, beautiful structures emerging from 
-            simple deterministic rules. As you explore, you'll notice self-similar patterns at different scales, 
-            intricate boundaries between stability and chaos, and regions of startling complexity.
+            Beyond its aesthetic appeal, the Barnsley Fern has practical applications in computer graphics, data compression, 
+            and modeling natural phenomena. It's a prime example of how fractal geometry can be used to create realistic 
+            computer-generated images of plants and landscapes.
         </p>
         <p>
-            These fractals aren't just visually stunning; they also have practical applications in fields ranging from 
-            physics and biology to economics and engineering, helping us understand complex systems and predict their behavior.
+            The fern also demonstrates the concept of "chaos game" - a method of generating fractals by randomly applying 
+            transformations. This approach shows how order and structure can emerge from seemingly random processes, a 
+            principle that appears in many areas of science and nature.
         </p>
-    </div>
+    </section>
     
     <script>
-        class LyapunovExplorer {
+        class BarnsleyFernExplorer {
             constructor() {
                 this.canvas = document.getElementById('canvas');
                 this.ctx = this.canvas.getContext('2d');
@@ -516,18 +536,15 @@
                 this.notification = document.getElementById('notification');
                 
                 // View parameters
-                this.centerX = 2.5;
-                this.centerY = 2.5;
+                this.centerX = 0;
+                this.centerY = 0;
                 this.zoom = 1;
-                this.baseMaxIterations = 100;
-                this.maxIterations = this.baseMaxIterations;
+                this.basePointCount = 50000;
+                this.pointCount = this.basePointCount;
                 this.colorScheme = 'classic';
-                this.sequencePattern = 'ab';
                 
                 // Performance settings
-                this.qualityLevel = 3; // 1-5 (fast to high quality)
-                this.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-                this.tileSize = 64; // Size of tiles for progressive rendering
+                this.qualityLevel = 3; // 1-5 (low to high density)
                 
                 // Interaction state
                 this.isDragging = false;
@@ -535,22 +552,24 @@
                 this.lastY = 0;
                 
                 // Rendering state
-                this.renderQueue = [];
                 this.isRendering = false;
-                this.cancelRender = false;
-                this.visibleTiles = new Set();
+                this.points = [];
                 
-                // Cache for previously computed tiles
-                this.tileCache = new Map();
+                // Barnsley Fern transformations
+                this.transformations = [
+                    { a: 0, b: 0, c: 0, d: 0.16, e: 0, f: 0, p: 0.01 },      // Stem
+                    { a: 0.85, b: 0.04, c: -0.04, d: 0.85, e: 0, f: 1.6, p: 0.85 }, // Main leaf
+                    { a: 0.2, b: -0.26, c: 0.23, d: 0.22, e: 0, f: 1.6, p: 0.07 },  // Left leaf
+                    { a: -0.15, b: 0.28, c: 0.26, d: 0.24, e: 0, f: 0.44, p: 0.07 } // Right leaf
+                ];
                 
                 // Interesting locations
                 this.interestingLocations = {
-                    default: { name: "Default View", x: 2.5, y: 2.5, zoom: 1 },
-                    chaos: { name: "Chaos Region", x: 3.2, y: 3.2, zoom: 2 },
-                    stability: { name: "Stability Island", x: 2.0, y: 3.5, zoom: 3 },
-                    transition: { name: "Transition Zone", x: 2.8, y: 2.2, zoom: 2.5 },
-                    spiral: { name: "Spiral Pattern", x: 3.5, y: 2.8, zoom: 4 },
-                    bifurcation: { name: "Bifurcation Point", x: 3.0, y: 3.0, zoom: 5 }
+                    full: { name: "Full Fern", x: 0, y: 4.5, zoom: 1 },
+                    stem: { name: "Stem Detail", x: 0, y: 1, zoom: 5 },
+                    leaf: { name: "Leaf Pattern", x: -2, y: 3, zoom: 8 },
+                    fractal: { name: "Fractal Edge", x: 2.5, y: 6, zoom: 15 },
+                    symmetry: { name: "Symmetry View", x: 0, y: 4.5, zoom: 2 }
                 };
                 
                 this.init();
@@ -567,12 +586,9 @@
             }
             resizeCanvas() {
                 // Set canvas size to match container
-                const container = this.canvas.parentElement;
+                const container = document.getElementById('canvas-container');
                 this.canvas.width = container.clientWidth;
                 this.canvas.height = container.clientHeight;
-                
-                // Clear cache when resizing
-                this.tileCache.clear();
             }
             setupEventListeners() {
                 // Mouse events
@@ -622,13 +638,6 @@
                     this.resetView();
                 });
                 
-                // Sequence pattern
-                document.getElementById('sequencePattern').addEventListener('change', (e) => {
-                    this.sequencePattern = e.target.value;
-                    this.clearCache();
-                    this.render();
-                });
-                
                 // Location selector
                 document.getElementById('locationSelect').addEventListener('change', (e) => {
                     const locationKey = e.target.value;
@@ -641,15 +650,13 @@
                 // Color scheme
                 document.getElementById('colorScheme').addEventListener('change', (e) => {
                     this.colorScheme = e.target.value;
-                    this.clearCache();
                     this.render();
                 });
                 
                 // Quality slider
                 document.getElementById('quality').addEventListener('input', (e) => {
                     this.qualityLevel = parseInt(e.target.value);
-                    this.updateMaxIterations();
-                    this.clearCache();
+                    this.updatePointCount();
                     this.render();
                 });
                 
@@ -669,7 +676,7 @@
                 const dx = e.clientX - this.lastX;
                 const dy = e.clientY - this.lastY;
                 
-                const scale = 4 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
+                const scale = 10 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
                 this.centerX -= dx * scale;
                 this.centerY -= dy * scale;
                 
@@ -677,13 +684,13 @@
                 this.lastY = e.clientY;
                 
                 this.updateInfo();
-                this.scheduleRender();
+                this.render();
             }
             endDrag() {
                 this.isDragging = false;
             }
             pan(direction) {
-                const moveAmount = 0.5 / this.zoom;
+                const moveAmount = 1 / this.zoom;
                 
                 switch(direction) {
                     case 'up':
@@ -704,31 +711,27 @@
                 this.render();
             }
             zoomAt(x, y, factor) {
-                const scale = 4 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
+                const scale = 10 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
                 const worldX = this.centerX + (x - this.canvas.width / 2) * scale;
                 const worldY = this.centerY + (y - this.canvas.height / 2) * scale;
                 
                 this.zoom *= factor;
                 
-                const newScale = 4 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
+                const newScale = 10 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
                 this.centerX = worldX - (x - this.canvas.width / 2) * newScale;
                 this.centerY = worldY - (y - this.canvas.height / 2) * newScale;
                 
-                this.updateMaxIterations();
                 this.updateInfo();
                 this.render();
             }
-            updateMaxIterations() {
-                // Adjust iterations based on zoom and quality level
-                const baseIterations = 50 + (this.qualityLevel * 30);
-                this.maxIterations = Math.min(1000, Math.max(50, Math.floor(baseIterations + Math.log2(this.zoom) * 50)));
+            updatePointCount() {
+                // Adjust point count based on quality level
+                this.pointCount = Math.floor(this.basePointCount * (0.5 + this.qualityLevel * 0.3));
             }
             resetView() {
-                this.centerX = 2.5;
-                this.centerY = 2.5;
+                this.centerX = 0;
+                this.centerY = 4.5;
                 this.zoom = 1;
-                this.updateMaxIterations();
-                this.clearCache();
                 this.updateInfo();
                 this.render();
             }
@@ -736,235 +739,121 @@
                 this.centerX = location.x;
                 this.centerY = location.y;
                 this.zoom = location.zoom;
-                this.updateMaxIterations();
-                this.clearCache();
                 this.updateInfo();
                 this.showNotification(`Navigated to ${location.name}`);
                 this.render();
             }
-            clearCache() {
-                this.tileCache.clear();
-            }
-            scheduleRender() {
-                if (this.renderTimeout) {
-                    clearTimeout(this.renderTimeout);
-                }
-                this.renderTimeout = setTimeout(() => this.render(), 100);
-            }
             render() {
-                // Cancel any ongoing render
-                this.cancelRender = true;
+                if (this.isRendering) return;
                 
+                this.isRendering = true;
+                this.loading.classList.add('active');
+                
+                // Use setTimeout to allow the UI to update
+                setTimeout(() => {
+                    this.generateFern();
+                    this.isRendering = false;
+                    this.loading.classList.remove('active');
+                }, 10);
+            }
+            generateFern() {
                 // Clear the canvas
                 this.ctx.fillStyle = '#000';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 
-                // Show loading indicator
-                this.loading.classList.add('active');
+                // Generate points for the Barnsley Fern
+                this.points = [];
+                let x = 0;
+                let y = 0;
                 
-                // Set up new render
-                this.cancelRender = false;
-                this.visibleTiles.clear();
-                
-                // Calculate visible tiles
-                const tilesX = Math.ceil(this.canvas.width / this.tileSize);
-                const tilesY = Math.ceil(this.canvas.height / this.tileSize);
-                
-                // Create render queue
-                this.renderQueue = [];
-                for (let y = 0; y < tilesY; y++) {
-                    for (let x = 0; x < tilesX; x++) {
-                        this.renderQueue.push({ x, y });
+                // Generate points
+                for (let i = 0; i < this.pointCount; i++) {
+                    // Choose a transformation based on probability
+                    const r = Math.random();
+                    let sum = 0;
+                    let transformation = this.transformations[0];
+                    
+                    for (const t of this.transformations) {
+                        sum += t.p;
+                        if (r <= sum) {
+                            transformation = t;
+                            break;
+                        }
+                    }
+                    
+                    // Apply the transformation
+                    const newX = transformation.a * x + transformation.b * y + transformation.e;
+                    const newY = transformation.c * x + transformation.d * y + transformation.f;
+                    
+                    x = newX;
+                    y = newY;
+                    
+                    // Skip the first few points to allow the system to stabilize
+                    if (i > 10) {
+                        this.points.push({ x, y });
                     }
                 }
                 
-                // Start rendering
-                this.isRendering = true;
-                this.renderNextTile();
+                // Draw the points
+                this.drawPoints();
             }
-            renderNextTile() {
-                if (!this.isRendering || this.cancelRender) {
-                    this.isRendering = false;
-                    this.loading.classList.remove('active');
-                    return;
-                }
+            drawPoints() {
+                // Calculate scale and offset
+                const scale = Math.min(this.canvas.width, this.canvas.height) / 10 * this.zoom;
+                const offsetX = this.canvas.width / 2 - this.centerX * scale;
+                const offsetY = this.canvas.height / 2 - this.centerY * scale;
                 
-                if (this.renderQueue.length === 0) {
-                    this.isRendering = false;
-                    this.loading.classList.remove('active');
-                    return;
-                }
-                
-                // Get next tile
-                const tile = this.renderQueue.shift();
-                const tileKey = `${tile.x},${tile.y}`;
-                
-                // Skip if not visible (shouldn't happen with our queue, but just in case)
-                if (!this.isTileVisible(tile.x, tile.y)) {
-                    this.renderNextTile();
-                    return;
-                }
-                
-                // Check if tile is in cache
-                if (this.tileCache.has(tileKey)) {
-                    const imageData = this.tileCache.get(tileKey);
-                    this.ctx.putImageData(imageData, tile.x * this.tileSize, tile.y * this.tileSize);
-                    this.renderNextTile();
-                    return;
-                }
-                
-                // Render the tile
-                this.renderTile(tile.x, tile.y, () => {
-                    // Continue rendering next tile
-                    requestAnimationFrame(() => this.renderNextTile());
-                });
-            }
-            isTileVisible(tileX, tileY) {
-                const x = tileX * this.tileSize;
-                const y = tileY * this.tileSize;
-                return x < this.canvas.width && y < this.canvas.height;
-            }
-            renderTile(tileX, tileY, callback) {
-                const tileWidth = Math.min(this.tileSize, this.canvas.width - tileX * this.tileSize);
-                const tileHeight = Math.min(this.tileSize, this.canvas.height - tileY * this.tileSize);
-                
-                // Create temporary canvas for this tile
-                const tileCanvas = document.createElement('canvas');
-                tileCanvas.width = tileWidth;
-                tileCanvas.height = tileHeight;
-                const tileCtx = tileCanvas.getContext('2d');
-                
-                // Get image data for the tile
-                const imageData = tileCtx.createImageData(tileWidth, tileHeight);
-                const data = imageData.data;
-                
-                // Calculate scale and offset for this tile
-                const scale = 4 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
-                const offsetX = this.centerX - (this.canvas.width / 2) * scale;
-                const offsetY = this.centerY - (this.canvas.height / 2) * scale;
-                
-                // Render the tile
-                for (let y = 0; y < tileHeight; y++) {
-                    for (let x = 0; x < tileWidth; x++) {
-                        const a = (tileX * this.tileSize + x) * scale + offsetX;
-                        const b = (tileY * this.tileSize + y) * scale + offsetY;
-                        
-                        const lyapunov = this.calculateLyapunov(a, b);
-                        const color = this.getColor(lyapunov);
-                        
-                        const index = (y * tileWidth + x) * 4;
-                        data[index] = color.r;
-                        data[index + 1] = color.g;
-                        data[index + 2] = color.b;
-                        data[index + 3] = 255;
+                // Draw each point
+                for (const point of this.points) {
+                    const screenX = point.x * scale + offsetX;
+                    const screenY = this.canvas.height - (point.y * scale + offsetY); // Flip Y axis
+                    
+                    // Skip points outside the canvas
+                    if (screenX < 0 || screenX >= this.canvas.width || screenY < 0 || screenY >= this.canvas.height) {
+                        continue;
                     }
+                    
+                    // Get color based on scheme and point position
+                    const color = this.getColor(point.x, point.y);
+                    
+                    // Draw the point
+                    this.ctx.fillStyle = color;
+                    this.ctx.fillRect(screenX, screenY, 1, 1);
                 }
-                
-                // Put the tile on the main canvas
-                this.ctx.putImageData(imageData, tileX * this.tileSize, tileY * this.tileSize);
-                
-                // Cache the tile
-                const tileKey = `${tileX},${tileY}`;
-                this.tileCache.set(tileKey, imageData);
-                
-                // Limit cache size
-                if (this.tileCache.size > 100) {
-                    // Remove oldest entry (simple approach)
-                    const firstKey = this.tileCache.keys().next().value;
-                    this.tileCache.delete(firstKey);
-                }
-                
-                // Callback to continue rendering
-                callback();
             }
-            calculateLyapunov(a, b) {
-                let x = 0.5;
-                let sum = 0;
-                
-                // Iterate through the sequence pattern
-                for (let i = 0; i < this.maxIterations; i++) {
-                    const patternIndex = i % this.sequencePattern.length;
-                    const r = this.sequencePattern[patternIndex] === 'a' ? a : b;
-                    
-                    // Logistic map: x_{n+1} = r * x_n * (1 - x_n)
-                    x = r * x * (1 - x);
-                    
-                    // Calculate derivative for Lyapunov exponent
-                    const derivative = Math.abs(r * (1 - 2 * x));
-                    
-                    // Avoid log(0) which would be -Infinity
-                    if (derivative > 0) {
-                        sum += Math.log(derivative);
-                    }
-                }
-                
-                // Lyapunov exponent is the average of the log of the derivatives
-                const lyapunov = sum / this.maxIterations;
-                
-                return lyapunov;
-            }
-            getColor(lyapunov) {
-                // Lyapunov exponent can be positive (chaos) or negative (stability)
-                // We'll map these values to colors
-                
-                // Normalize the value to a range of 0-1
-                let t;
-                if (lyapunov < 0) {
-                    // Negative values (stability) - map to 0-0.5
-                    t = 0.5 + lyapunov / 2;  // lyapunov is negative, so this subtracts
-                } else {
-                    // Positive values (chaos) - map to 0.5-1
-                    t = 0.5 + Math.min(lyapunov / 2, 0.5);
-                }
-                
-                // Ensure t is in the range [0, 1]
-                t = Math.max(0, Math.min(1, t));
-                
+            getColor(x, y) {
                 switch(this.colorScheme) {
                     case 'classic':
-                        // Classic Lyapunov coloring: blue for stability, red for chaos
-                        if (lyapunov < 0) {
-                            // Stable regions - blue gradient
-                            const intensity = Math.min(1, Math.abs(lyapunov) * 2);
-                            return {
-                                r: Math.floor(intensity * 50),
-                                g: Math.floor(intensity * 100),
-                                b: Math.floor(150 + intensity * 105)
-                            };
-                        } else {
-                            // Chaotic regions - red gradient
-                            const intensity = Math.min(1, lyapunov * 2);
-                            return {
-                                r: Math.floor(150 + intensity * 105),
-                                g: Math.floor(intensity * 50),
-                                b: Math.floor(intensity * 50)
-                            };
-                        }
+                        // Classic green fern with gradient based on height
+                        const greenIntensity = Math.min(255, 100 + Math.floor(y * 30));
+                        return `rgb(0, ${greenIntensity}, 0)`;
                     
-                    case 'fire':
-                        return {
-                            r: Math.floor(255 * t),
-                            g: Math.floor(255 * Math.max(0, t * 2 - 1)),
-                            b: Math.floor(255 * Math.max(0, t * 3 - 2))
-                        };
+                    case 'autumn':
+                        // Autumn colors based on height
+                        const t = Math.min(1, y / 10);
+                        const r = Math.floor(200 + t * 55);
+                        const g = Math.floor(150 - t * 50);
+                        const b = Math.floor(50 - t * 50);
+                        return `rgb(${r}, ${g}, ${b})`;
+                    
+                    case 'monochrome':
+                        // Monochrome based on height
+                        const gray = Math.min(255, 100 + Math.floor(y * 30));
+                        return `rgb(${gray}, ${gray}, ${gray})`;
+                    
+                    case 'rainbow':
+                        // Rainbow colors based on position
+                        const hue = (x * 50 + y * 30) % 360;
+                        return this.hslToRgb(hue, 80, 50);
                     
                     case 'ocean':
-                        return {
-                            r: Math.floor(255 * t * 0.3),
-                            g: Math.floor(255 * t * 0.7),
-                            b: Math.floor(255 * t)
-                        };
-                    
-                    case 'psychedelic':
-                        const hue = t * 360;
-                        return this.hslToRgb(hue, 100, 50);
-                    
-                    case 'grayscale':
-                        const gray = Math.floor(255 * t);
-                        return { r: gray, g: gray, b: gray };
+                        // Ocean colors based on height
+                        const blueIntensity = Math.min(255, 100 + Math.floor(y * 30));
+                        const greenIntensity2 = Math.min(255, 50 + Math.floor(y * 20));
+                        return `rgb(0, ${greenIntensity2}, ${blueIntensity})`;
                     
                     default:
-                        return { r: 255, g: 255, b: 255 };
+                        return '#00ff00'; // Default green
                 }
             }
             hslToRgb(h, s, l) {
@@ -993,11 +882,7 @@
                     b = hue2rgb(p, q, h - 1/3);
                 }
                 
-                return {
-                    r: Math.round(r * 255),
-                    g: Math.round(g * 255),
-                    b: Math.round(b * 255)
-                };
+                return `rgb(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)})`;
             }
             exportImage() {
                 // Disable export button during export
@@ -1019,7 +904,7 @@
                 
                 // Create download link
                 const link = document.createElement('a');
-                link.download = `lyapunov_${this.sequencePattern}_${Date.now()}.png`;
+                link.download = `barnsley_fern_${Date.now()}.png`;
                 link.href = dataURL;
                 
                 // Trigger download
@@ -1044,13 +929,12 @@
             }
             updateInfo() {
                 document.getElementById('zoomLevel').textContent = this.zoom.toFixed(2) + 'x';
-                document.getElementById('centerCoords').textContent = 
-                    `(${this.centerX.toFixed(6)}, ${this.centerY.toFixed(6)})`;
-                document.getElementById('iterations').textContent = this.maxIterations;
+                document.getElementById('pointCount').textContent = this.pointCount.toLocaleString();
+                document.getElementById('iterations').textContent = this.pointCount.toLocaleString();
             }
         }
         // Initialize the explorer when the page loads
-        const explorer = new LyapunovExplorer();
+        const explorer = new BarnsleyFernExplorer();
     </script>
 </body>
 </html>

@@ -4,31 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julia Set Explorer</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #0a0a0a;
             color: #ffffff;
-            overflow: hidden;
-            position: relative;
+            overflow-x: hidden;
         }
-
+        .interactive-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
         #canvas {
             display: block;
             cursor: grab;
             background: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
-
         #canvas:active {
             cursor: grabbing;
         }
-
         .controls {
             position: absolute;
             top: 20px;
@@ -44,21 +51,18 @@
             overflow-y: auto;
             z-index: 10;
         }
-
         .controls h2 {
             font-size: 18px;
             margin-bottom: 15px;
             color: #fff;
             font-weight: 600;
         }
-
         .direction-controls {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
             margin-bottom: 20px;
         }
-
         .direction-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -73,27 +77,22 @@
             justify-content: center;
             font-size: 16px;
         }
-
         .direction-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-1px);
         }
-
         .direction-btn:active {
             transform: translateY(0);
         }
-
         .direction-btn.center {
             grid-column: 2;
             grid-row: 2;
         }
-
         .zoom-controls {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
-
         .zoom-btn {
             flex: 1;
             background: rgba(255, 255, 255, 0.1);
@@ -105,12 +104,10 @@
             transition: all 0.2s ease;
             font-weight: 500;
         }
-
         .zoom-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-1px);
         }
-
         .reset-btn {
             width: 100%;
             background: rgba(59, 130, 246, 0.2);
@@ -123,27 +120,22 @@
             font-weight: 500;
             margin-bottom: 20px;
         }
-
         .reset-btn:hover {
             background: rgba(59, 130, 246, 0.3);
             transform: translateY(-1px);
         }
-
         .info {
             font-size: 12px;
             color: rgba(255, 255, 255, 0.6);
             line-height: 1.6;
         }
-
         .info-item {
             margin-bottom: 8px;
         }
-
         .info-label {
             font-weight: 500;
             color: rgba(255, 255, 255, 0.8);
         }
-
         .loading {
             position: absolute;
             top: 50%;
@@ -157,11 +149,9 @@
             gap: 15px;
             z-index: 20;
         }
-
         .loading.active {
             display: flex;
         }
-
         .spinner {
             width: 24px;
             height: 24px;
@@ -170,22 +160,18 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
         .color-scheme, .julia-controls, .locations, .export-section {
             margin-bottom: 20px;
         }
-
         .color-scheme label, .julia-controls label, .locations label, .export-section label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
         }
-
         .color-scheme select, .julia-controls select, .locations select {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
@@ -196,17 +182,14 @@
             cursor: pointer;
             font-size: 14px;
         }
-
         .color-scheme select option, .julia-controls select option, .locations select option {
             background: #1a1a1a;
         }
-
         .parameter-inputs {
             display: flex;
             gap: 10px;
             margin-top: 8px;
         }
-
         .parameter-input {
             flex: 1;
             background: rgba(255, 255, 255, 0.1);
@@ -216,12 +199,10 @@
             border-radius: 6px;
             font-size: 14px;
         }
-
         .parameter-input:focus {
             outline: none;
             border-color: rgba(59, 130, 246, 0.5);
         }
-
         .apply-btn {
             width: 100%;
             background: rgba(59, 130, 246, 0.2);
@@ -234,21 +215,17 @@
             font-weight: 500;
             margin-top: 8px;
         }
-
         .apply-btn:hover {
             background: rgba(59, 130, 246, 0.3);
             transform: translateY(-1px);
         }
-
         .performance-controls {
             margin-bottom: 20px;
         }
-
         .quality-slider {
             width: 100%;
             margin-top: 10px;
         }
-
         .quality-labels {
             display: flex;
             justify-content: space-between;
@@ -256,7 +233,6 @@
             color: rgba(255, 255, 255, 0.5);
             margin-top: 5px;
         }
-
         .export-btn {
             width: 100%;
             background: rgba(34, 197, 94, 0.2);
@@ -268,17 +244,14 @@
             transition: all 0.2s ease;
             font-weight: 500;
         }
-
         .export-btn:hover {
             background: rgba(34, 197, 94, 0.3);
             transform: translateY(-1px);
         }
-
         .export-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         .notification {
             position: fixed;
             bottom: 20px;
@@ -293,17 +266,14 @@
             transition: opacity 0.3s ease;
             z-index: 100;
         }
-
         .notification.show {
             opacity: 1;
         }
-
         .help-text {
             font-size: 11px;
             color: rgba(255, 255, 255, 0.5);
             margin-top: 5px;
         }
-
         @media (max-width: 640px) {
             .controls {
                 top: 10px;
@@ -312,25 +282,55 @@
                 min-width: 160px;
                 max-height: calc(100vh - 20px);
             }
-
             .direction-btn {
                 width: 35px;
                 height: 35px;
                 font-size: 14px;
             }
-
             .zoom-btn {
                 padding: 8px;
                 font-size: 14px;
             }
         }
+        
+        /* Content section styles */
+        .content-section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .content-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .content-section h2 {
+            font-size: 1.8rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #3b82f6;
+        }
+        .content-section p {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .content-section ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .content-section li {
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .highlight {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
     </style>
-    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-    <svg class="cube-background" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-        <g id="cubeContainer"></g>
-    </svg>
     <nav>
         <div class="nav-container">
             <div class="logo"><a href="/index.html">Mike Wang</a></div>
@@ -338,111 +338,154 @@
                 <li><a href="/collections.html">Collections</a></li>
             </ul>
     </nav>
-    <canvas id="canvas"></canvas>
-    
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <span>Rendering...</span>
-    </div>
-
-    <div class="controls">
-        <h2>Julia Set Explorer</h2>
+    <div class="interactive-section">
+        <nav>
+            <div class="nav-container">
+                <div class="logo"><a href="/index.html">Mike Wang</a></div>
+                <ul class="nav-links external-links">
+                    <li><a href="/collections.html">Collections</a></li>
+                </ul>
+            </div>
+        </nav>
         
-        <div class="direction-controls">
-            <div></div>
-            <button class="direction-btn" data-direction="up">↑</button>
-            <div></div>
-            <button class="direction-btn" data-direction="left">←</button>
-            <button class="direction-btn center" data-direction="reset">⌂</button>
-            <button class="direction-btn" data-direction="right">→</button>
-            <div></div>
-            <button class="direction-btn" data-direction="down">↓</button>
-            <div></div>
+        <canvas id="canvas"></canvas>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <span>Rendering...</span>
         </div>
-
-        <div class="zoom-controls">
-            <button class="zoom-btn" id="zoomIn">Zoom In</button>
-            <button class="zoom-btn" id="zoomOut">Zoom Out</button>
-        </div>
-
-        <button class="reset-btn" id="resetView">Reset View</button>
-
-        <div class="julia-controls">
-            <label for="juliaPreset">Julia Set Parameters</label>
-            <select id="juliaPreset">
-                <option value="default">Default (c = -0.7 + 0.27i)</option>
-                <option value="dendrite">Dendrite (c = 0 + i)</option>
-                <option value="dragon">Dragon (c = -0.8 + 0.156i)</option>
-                <option value="spiral">Spiral (c = -0.4 + 0.6i)</option>
-                <option value="douady">Douady's Rabbit (c = -0.123 + 0.745i)</option>
-                <option value="san marco">San Marco (c = -0.75 + 0.11i)</option>
-                <option value="siegel">Siegel Disk (c = -0.391 - 0.587i)</option>
-                <option value="custom">Custom Parameters</option>
-            </select>
+        <div class="controls">
+            <h2>Julia Set Explorer</h2>
             
-            <div class="parameter-inputs" id="customParams" style="display: none;">
-                <input type="number" id="realPart" class="parameter-input" placeholder="Real" step="0.01" value="-0.7">
-                <input type="number" id="imagPart" class="parameter-input" placeholder="Imaginary" step="0.01" value="0.27">
+            <div class="direction-controls">
+                <div></div>
+                <button class="direction-btn" data-direction="up">↑</button>
+                <div></div>
+                <button class="direction-btn" data-direction="left">←</button>
+                <button class="direction-btn center" data-direction="reset">⌂</button>
+                <button class="direction-btn" data-direction="right">→</button>
+                <div></div>
+                <button class="direction-btn" data-direction="down">↓</button>
+                <div></div>
             </div>
-            
-            <button class="apply-btn" id="applyParams" style="display: none;">Apply Parameters</button>
-            <div class="help-text">Julia sets are defined by z_{n+1} = z_n^2 + c</div>
-        </div>
-
-        <div class="locations">
-            <label for="locationSelect">Interesting Locations</label>
-            <select id="locationSelect">
-                <option value="">Select a location...</option>
-                <option value="center">Center View</option>
-                <option value="detail1">Detail Region 1</option>
-                <option value="detail2">Detail Region 2</option>
-                <option value="boundary">Boundary Detail</option>
-                <option value="spiral">Spiral Center</option>
-            </select>
-        </div>
-
-        <div class="color-scheme">
-            <label for="colorScheme">Color Scheme</label>
-            <select id="colorScheme">
-                <option value="classic">Classic</option>
-                <option value="fire">Fire</option>
-                <option value="ocean">Ocean</option>
-                <option value="psychedelic">Psychedelic</option>
-                <option value="grayscale">Grayscale</option>
-            </select>
-        </div>
-
-        <div class="performance-controls">
-            <label for="quality">Quality vs Performance</label>
-            <input type="range" id="quality" class="quality-slider" min="1" max="5" value="3">
-            <div class="quality-labels">
-                <span>Fast</span>
-                <span>Balanced</span>
-                <span>High Quality</span>
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoomIn">Zoom In</button>
+                <button class="zoom-btn" id="zoomOut">Zoom Out</button>
+            </div>
+            <button class="reset-btn" id="resetView">Reset View</button>
+            <div class="julia-controls">
+                <label for="juliaPreset">Julia Set Parameters</label>
+                <select id="juliaPreset">
+                    <option value="default">Default (c = -0.7 + 0.27i)</option>
+                    <option value="dendrite">Dendrite (c = 0 + i)</option>
+                    <option value="dragon">Dragon (c = -0.8 + 0.156i)</option>
+                    <option value="spiral">Spiral (c = -0.4 + 0.6i)</option>
+                    <option value="douady">Douady's Rabbit (c = -0.123 + 0.745i)</option>
+                    <option value="san marco">San Marco (c = -0.75 + 0.11i)</option>
+                    <option value="siegel">Siegel Disk (c = -0.391 - 0.587i)</option>
+                    <option value="custom">Custom Parameters</option>
+                </select>
+                
+                <div class="parameter-inputs" id="customParams" style="display: none;">
+                    <input type="number" id="realPart" class="parameter-input" placeholder="Real" step="0.01" value="-0.7">
+                    <input type="number" id="imagPart" class="parameter-input" placeholder="Imaginary" step="0.01" value="0.27">
+                </div>
+                
+                <button class="apply-btn" id="applyParams" style="display: none;">Apply Parameters</button>
+                <div class="help-text">Julia sets are defined by z_{n+1} = z_n^2 + c</div>
+            </div>
+            <div class="locations">
+                <label for="locationSelect">Interesting Locations</label>
+                <select id="locationSelect">
+                    <option value="">Select a location...</option>
+                    <option value="center">Center View</option>
+                    <option value="detail1">Detail Region 1</option>
+                    <option value="detail2">Detail Region 2</option>
+                    <option value="boundary">Boundary Detail</option>
+                    <option value="spiral">Spiral Center</option>
+                </select>
+            </div>
+            <div class="color-scheme">
+                <label for="colorScheme">Color Scheme</label>
+                <select id="colorScheme">
+                    <option value="classic">Classic</option>
+                    <option value="fire">Fire</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="psychedelic">Psychedelic</option>
+                    <option value="grayscale">Grayscale</option>
+                </select>
+            </div>
+            <div class="performance-controls">
+                <label for="quality">Quality vs Performance</label>
+                <input type="range" id="quality" class="quality-slider" min="1" max="5" value="3">
+                <div class="quality-labels">
+                    <span>Fast</span>
+                    <span>Balanced</span>
+                    <span>High Quality</span>
+                </div>
+            </div>
+            <div class="export-section">
+                <button class="export-btn" id="exportBtn">Export as Image</button>
+            </div>
+            <div class="info">
+                <div class="info-item">
+                    <span class="info-label">Zoom:</span> <span id="zoomLevel">1.0x</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Center:</span> <span id="centerCoords">(0, 0)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Parameter c:</span> <span id="juliaParam">-0.7 + 0.27i</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Iterations:</span> <span id="iterations">100</span>
+                </div>
             </div>
         </div>
-
-        <div class="export-section">
-            <button class="export-btn" id="exportBtn">Export as Image</button>
-        </div>
-
-        <div class="info">
-            <div class="info-item">
-                <span class="info-label">Zoom:</span> <span id="zoomLevel">1.0x</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Center:</span> <span id="centerCoords">(0, 0)</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Parameter c:</span> <span id="juliaParam">-0.7 + 0.27i</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Iterations:</span> <span id="iterations">100</span>
-            </div>
-        </div>
+        <div class="notification" id="notification"></div>
     </div>
-
-    <div class="notification" id="notification"></div>
+    
+    <div class="content-section">
+        <h1>Exploring Julia Sets</h1>
+        <p>Julia sets are fascinating fractal objects that reveal infinite complexity from simple mathematical rules. Named after French mathematician Gaston Julia, these sets are defined by the iterative formula <span class="highlight">z_{n+1} = z_n^2 + c</span>, where z and c are complex numbers.</p>
+        
+        <h2>Mathematical Foundation</h2>
+        <p>At its core, a Julia set is the boundary between points that escape to infinity and those that remain bounded under iteration. For each complex number c, we define a function f_c(z) = z^2 + c. The Julia set for parameter c is the set of points in the complex plane where the behavior of this function becomes chaotic.</p>
+        
+        <p>The beauty of Julia sets lies in their self-similarity at different scales. No matter how much you zoom in, you'll discover new patterns and structures that echo the whole, creating an infinitely complex tapestry.</p>
+        
+        <h2>Interactive Exploration</h2>
+        <p>With the interactive explorer above, you can:</p>
+        <ul>
+            <li>Navigate through different regions using the directional controls or by clicking and dragging</li>
+            <li>Zoom in to explore the intricate details of each fractal pattern</li>
+            <li>Experiment with different parameters to see how they affect the shape of the Julia set</li>
+            <li>Choose from various color schemes to highlight different aspects of the fractal</li>
+            <li>Visit interesting locations that showcase particularly beautiful features</li>
+        </ul>
+        
+        <h2>Famous Julia Sets</h2>
+        <p>Some parameters produce particularly striking Julia sets:</p>
+        <ul>
+            <li><span class="highlight">Douady's Rabbit</span> (c = -0.123 + 0.745i): A fractal with threefold symmetry resembling a rabbit</li>
+            <li><span class="highlight">San Marco</span> (c = -0.75 + 0.11i): Features a prominent central component with intricate decorations</li>
+            <li><span class="highlight">Siegel Disk</span> (c = -0.391 - 0.587i): Contains a region where points move in a quasi-periodic fashion</li>
+            <li><span class="highlight">Dendrite</span> (c = i): A tree-like structure that is connected but has no interior</li>
+        </ul>
+        
+        <h2>Connection to the Mandelbrot Set</h2>
+        <p>Julia sets are intimately connected to the Mandelbrot set, another famous fractal. The Mandelbrot set is essentially a map of all possible Julia sets: for each point c in the Mandelbrot set, the corresponding Julia set is connected; for points outside, the Julia set is a Cantor set (totally disconnected).</p>
+        
+        <p>This relationship means that by exploring the Mandelbrot set, you're effectively previewing all possible Julia sets. Each point in the Mandelbrot set corresponds to a unique Julia set with its own distinctive characteristics.</p>
+        
+        <h2>Applications and Significance</h2>
+        <p>Beyond their aesthetic appeal, Julia sets have important applications in:</p>
+        <ul>
+            <li><span class="highlight">Dynamical Systems</span>: They provide insights into the behavior of chaotic systems</li>
+            <li><span class="highlight">Computer Graphics</span>: Their infinite detail makes them ideal for generating textures and landscapes</li>
+            <li><span class="highlight">Art and Design</span>: Artists use fractals to create visually stunning works with mathematical precision</li>
+        </ul>
+    </div>
 
     <script>
         class JuliaSetExplorer {
@@ -504,7 +547,6 @@
                 
                 this.init();
             }
-
             init() {
                 this.resizeCanvas();
                 this.setupEventListeners();
@@ -515,16 +557,15 @@
                     this.render();
                 });
             }
-
             resizeCanvas() {
-                // Set canvas size to match window
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
+                // Set canvas size to match its container
+                const container = this.canvas.parentElement;
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientHeight;
                 
                 // Clear cache when resizing
                 this.tileCache.clear();
             }
-
             setupEventListeners() {
                 // Mouse events
                 this.canvas.addEventListener('mousedown', (e) => this.startDrag(e));
@@ -642,13 +683,11 @@
                     this.exportImage();
                 });
             }
-
             startDrag(e) {
                 this.isDragging = true;
                 this.lastX = e.clientX;
                 this.lastY = e.clientY;
             }
-
             drag(e) {
                 if (!this.isDragging) return;
                 
@@ -665,11 +704,9 @@
                 this.updateInfo();
                 this.scheduleRender();
             }
-
             endDrag() {
                 this.isDragging = false;
             }
-
             pan(direction) {
                 const moveAmount = 0.5 / this.zoom;
                 
@@ -691,7 +728,6 @@
                 this.updateInfo();
                 this.render();
             }
-
             zoomAt(x, y, factor) {
                 const scale = 4 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
                 const worldX = this.centerX + (x - this.canvas.width / 2) * scale;
@@ -707,13 +743,11 @@
                 this.updateInfo();
                 this.render();
             }
-
             updateMaxIterations() {
                 // Adjust iterations based on zoom and quality level
                 const baseIterations = 50 + (this.qualityLevel * 30);
                 this.maxIterations = Math.min(1000, Math.max(50, Math.floor(baseIterations + Math.log2(this.zoom) * 50)));
             }
-
             resetView() {
                 this.centerX = 0;
                 this.centerY = 0;
@@ -723,7 +757,6 @@
                 this.updateInfo();
                 this.render();
             }
-
             navigateToLocation(location) {
                 this.centerX = location.x;
                 this.centerY = location.y;
@@ -734,18 +767,15 @@
                 this.showNotification(`Navigated to ${location.name}`);
                 this.render();
             }
-
             clearCache() {
                 this.tileCache.clear();
             }
-
             scheduleRender() {
                 if (this.renderTimeout) {
                     clearTimeout(this.renderTimeout);
                 }
                 this.renderTimeout = setTimeout(() => this.render(), 100);
             }
-
             render() {
                 // Cancel any ongoing render
                 this.cancelRender = true;
@@ -777,7 +807,6 @@
                 this.isRendering = true;
                 this.renderNextTile();
             }
-
             renderNextTile() {
                 if (!this.isRendering || this.cancelRender) {
                     this.isRendering = false;
@@ -815,13 +844,11 @@
                     requestAnimationFrame(() => this.renderNextTile());
                 });
             }
-
             isTileVisible(tileX, tileY) {
                 const x = tileX * this.tileSize;
                 const y = tileY * this.tileSize;
                 return x < this.canvas.width && y < this.canvas.height;
             }
-
             renderTile(tileX, tileY, callback) {
                 const tileWidth = Math.min(this.tileSize, this.canvas.width - tileX * this.tileSize);
                 const tileHeight = Math.min(this.tileSize, this.canvas.height - tileY * this.tileSize);
@@ -875,7 +902,6 @@
                 // Callback to continue rendering
                 callback();
             }
-
             julia(zx, zy) {
                 let x = zx;
                 let y = zy;
@@ -890,7 +916,6 @@
                 
                 return iterations;
             }
-
             getColor(iterations) {
                 if (iterations === this.maxIterations) {
                     return { r: 0, g: 0, b: 0 };
@@ -932,7 +957,6 @@
                         return { r: 255, g: 255, b: 255 };
                 }
             }
-
             hslToRgb(h, s, l) {
                 h /= 360;
                 s /= 100;
@@ -965,7 +989,6 @@
                     b: Math.round(b * 255)
                 };
             }
-
             exportImage() {
                 // Disable export button during export
                 const exportBtn = document.getElementById('exportBtn');
@@ -1003,7 +1026,6 @@
                 // Show notification
                 this.showNotification('Image exported successfully!');
             }
-
             showNotification(message) {
                 this.notification.textContent = message;
                 this.notification.classList.add('show');
@@ -1012,7 +1034,6 @@
                     this.notification.classList.remove('show');
                 }, 3000);
             }
-
             updateInfo() {
                 document.getElementById('zoomLevel').textContent = this.zoom.toFixed(2) + 'x';
                 document.getElementById('centerCoords').textContent = 
@@ -1026,7 +1047,6 @@
                 document.getElementById('iterations').textContent = this.maxIterations;
             }
         }
-
         // Initialize the explorer when the page loads
         const explorer = new JuliaSetExplorer();
     </script>

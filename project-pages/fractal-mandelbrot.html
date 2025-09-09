@@ -4,34 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mandelbrot Set Explorer</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #0a0a0a;
             color: #ffffff;
-            overflow: hidden;
             position: relative;
         }
-
+        #canvas-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
         #canvas {
             display: block;
             cursor: grab;
             background: #000;
+            width: 100%;
+            height: 100%;
         }
-
         #canvas:active {
             cursor: grabbing;
         }
-
         .controls {
             position: absolute;
-            top: 20px;
+            top: 80px;
             right: 20px;
             background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(10px);
@@ -40,25 +43,22 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
             min-width: 200px;
-            max-height: calc(100vh - 40px);
+            max-height: calc(100vh - 120px);
             overflow-y: auto;
             z-index: 10;
         }
-
         .controls h2 {
             font-size: 18px;
             margin-bottom: 15px;
             color: #fff;
             font-weight: 600;
         }
-
         .direction-controls {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
             margin-bottom: 20px;
         }
-
         .direction-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -73,27 +73,22 @@
             justify-content: center;
             font-size: 16px;
         }
-
         .direction-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-1px);
         }
-
         .direction-btn:active {
             transform: translateY(0);
         }
-
         .direction-btn.center {
             grid-column: 2;
             grid-row: 2;
         }
-
         .zoom-controls {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
-
         .zoom-btn {
             flex: 1;
             background: rgba(255, 255, 255, 0.1);
@@ -105,12 +100,10 @@
             transition: all 0.2s ease;
             font-weight: 500;
         }
-
         .zoom-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-1px);
         }
-
         .reset-btn {
             width: 100%;
             background: rgba(59, 130, 246, 0.2);
@@ -123,27 +116,22 @@
             font-weight: 500;
             margin-bottom: 20px;
         }
-
         .reset-btn:hover {
             background: rgba(59, 130, 246, 0.3);
             transform: translateY(-1px);
         }
-
         .info {
             font-size: 12px;
             color: rgba(255, 255, 255, 0.6);
             line-height: 1.6;
         }
-
         .info-item {
             margin-bottom: 8px;
         }
-
         .info-label {
             font-weight: 500;
             color: rgba(255, 255, 255, 0.8);
         }
-
         .loading {
             position: absolute;
             top: 50%;
@@ -157,11 +145,9 @@
             gap: 15px;
             z-index: 20;
         }
-
         .loading.active {
             display: flex;
         }
-
         .spinner {
             width: 24px;
             height: 24px;
@@ -170,22 +156,18 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
         .color-scheme, .locations, .export-section {
             margin-bottom: 20px;
         }
-
         .color-scheme label, .locations label, .export-section label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
         }
-
         .color-scheme select, .locations select {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
@@ -196,20 +178,16 @@
             cursor: pointer;
             font-size: 14px;
         }
-
         .color-scheme select option, .locations select option {
             background: #1a1a1a;
         }
-
         .performance-controls {
             margin-bottom: 20px;
         }
-
         .quality-slider {
             width: 100%;
             margin-top: 10px;
         }
-
         .quality-labels {
             display: flex;
             justify-content: space-between;
@@ -217,7 +195,6 @@
             color: rgba(255, 255, 255, 0.5);
             margin-top: 5px;
         }
-
         .export-btn {
             width: 100%;
             background: rgba(34, 197, 94, 0.2);
@@ -229,17 +206,14 @@
             transition: all 0.2s ease;
             font-weight: 500;
         }
-
         .export-btn:hover {
             background: rgba(34, 197, 94, 0.3);
             transform: translateY(-1px);
         }
-
         .export-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         .notification {
             position: fixed;
             bottom: 20px;
@@ -254,129 +228,222 @@
             transition: opacity 0.3s ease;
             z-index: 100;
         }
-
         .notification.show {
             opacity: 1;
         }
-
+        
+        /* Introduction section styles */
+        .introduction {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: #111;
+        }
+        .introduction h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 700;
+        }
+        .introduction h2 {
+            font-size: 28px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .introduction p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .introduction .highlight {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
         @media (max-width: 640px) {
             .controls {
-                top: 10px;
+                top: 70px;
                 right: 10px;
                 padding: 15px;
                 min-width: 160px;
-                max-height: calc(100vh - 20px);
+                max-height: calc(100vh - 90px);
             }
-
             .direction-btn {
                 width: 35px;
                 height: 35px;
                 font-size: 14px;
             }
-
             .zoom-btn {
                 padding: 8px;
                 font-size: 14px;
             }
+            .introduction h1 {
+                font-size: 32px;
+            }
+            .introduction h2 {
+                font-size: 24px;
+            }
+            .introduction p {
+                font-size: 16px;
+            }
         }
     </style>
-    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-    <svg class="cube-background" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-        <g id="cubeContainer"></g>
-    </svg>
     <nav>
         <div class="nav-container">
             <div class="logo"><a href="/index.html">Mike Wang</a></div>
             <ul class="nav-links external-links">
                 <li><a href="/collections.html">Collections</a></li>
             </ul>
+        </div>
     </nav>
-    <canvas id="canvas"></canvas>
     
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <span>Rendering...</span>
-    </div>
-
-    <div class="controls">
-        <h2>Mandelbrot Explorer</h2>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
         
-        <div class="direction-controls">
-            <div></div>
-            <button class="direction-btn" data-direction="up">↑</button>
-            <div></div>
-            <button class="direction-btn" data-direction="left">←</button>
-            <button class="direction-btn center" data-direction="reset">⌂</button>
-            <button class="direction-btn" data-direction="right">→</button>
-            <div></div>
-            <button class="direction-btn" data-direction="down">↓</button>
-            <div></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <span>Rendering...</span>
         </div>
-
-        <div class="zoom-controls">
-            <button class="zoom-btn" id="zoomIn">Zoom In</button>
-            <button class="zoom-btn" id="zoomOut">Zoom Out</button>
-        </div>
-
-        <button class="reset-btn" id="resetView">Reset View</button>
-
-        <div class="locations">
-            <label for="locationSelect">Interesting Locations</label>
-            <select id="locationSelect">
-                <option value="">Select a location...</option>
-                <option value="main">Main Cardioid</option>
-                <option value="seahorse">Seahorse Valley</option>
-                <option value="spiral">Spiral</option>
-                <option value="mini">Mini Mandelbrot</option>
-                <option value="lightning">Lightning</option>
-                <option value="elephant">Elephant Valley</option>
-                <option value="dragon">Dragon Valley</option>
-                <option value="julia">Julia Set Connection</option>
-            </select>
-        </div>
-
-        <div class="color-scheme">
-            <label for="colorScheme">Color Scheme</label>
-            <select id="colorScheme">
-                <option value="classic">Classic</option>
-                <option value="fire">Fire</option>
-                <option value="ocean">Ocean</option>
-                <option value="psychedelic">Psychedelic</option>
-                <option value="grayscale">Grayscale</option>
-            </select>
-        </div>
-
-        <div class="performance-controls">
-            <label for="quality">Quality vs Performance</label>
-            <input type="range" id="quality" class="quality-slider" min="1" max="5" value="3">
-            <div class="quality-labels">
-                <span>Fast</span>
-                <span>Balanced</span>
-                <span>High Quality</span>
+        <div class="controls">
+            <h2>Mandelbrot Explorer</h2>
+            
+            <div class="direction-controls">
+                <div></div>
+                <button class="direction-btn" data-direction="up">↑</button>
+                <div></div>
+                <button class="direction-btn" data-direction="left">←</button>
+                <button class="direction-btn center" data-direction="reset">⌂</button>
+                <button class="direction-btn" data-direction="right">→</button>
+                <div></div>
+                <button class="direction-btn" data-direction="down">↓</button>
+                <div></div>
+            </div>
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoomIn">Zoom In</button>
+                <button class="zoom-btn" id="zoomOut">Zoom Out</button>
+            </div>
+            <button class="reset-btn" id="resetView">Reset View</button>
+            <div class="locations">
+                <label for="locationSelect">Interesting Locations</label>
+                <select id="locationSelect">
+                    <option value="">Select a location...</option>
+                    <option value="main">Main Cardioid</option>
+                    <option value="seahorse">Seahorse Valley</option>
+                    <option value="spiral">Spiral</option>
+                    <option value="mini">Mini Mandelbrot</option>
+                    <option value="lightning">Lightning</option>
+                    <option value="elephant">Elephant Valley</option>
+                    <option value="dragon">Dragon Valley</option>
+                    <option value="julia">Julia Set Connection</option>
+                </select>
+            </div>
+            <div class="color-scheme">
+                <label for="colorScheme">Color Scheme</label>
+                <select id="colorScheme">
+                    <option value="classic">Classic</option>
+                    <option value="fire">Fire</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="psychedelic">Psychedelic</option>
+                    <option value="grayscale">Grayscale</option>
+                </select>
+            </div>
+            <div class="performance-controls">
+                <label for="quality">Quality vs Performance</label>
+                <input type="range" id="quality" class="quality-slider" min="1" max="5" value="3">
+                <div class="quality-labels">
+                    <span>Fast</span>
+                    <span>Balanced</span>
+                    <span>High Quality</span>
+                </div>
+            </div>
+            <div class="export-section">
+                <button class="export-btn" id="exportBtn">Export as Image</button>
+            </div>
+            <div class="info">
+                <div class="info-item">
+                    <span class="info-label">Zoom:</span> <span id="zoomLevel">1.0x</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Center:</span> <span id="centerCoords">(-0.5, 0)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Iterations:</span> <span id="iterations">100</span>
+                </div>
             </div>
         </div>
-
-        <div class="export-section">
-            <button class="export-btn" id="exportBtn">Export as Image</button>
-        </div>
-
-        <div class="info">
-            <div class="info-item">
-                <span class="info-label">Zoom:</span> <span id="zoomLevel">1.0x</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Center:</span> <span id="centerCoords">(-0.5, 0)</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Iterations:</span> <span id="iterations">100</span>
-            </div>
-        </div>
+        <div class="notification" id="notification"></div>
     </div>
-
-    <div class="notification" id="notification"></div>
-
+    
+    <section class="introduction">
+        <h1>The Mandelbrot Set</h1>
+        <p>
+            The <a href="https://en.wikipedia.org/wiki/Mandelbrot_set" class="highlight" target="_blank" rel="noopener noreferrer">Mandelbrot Set</a>
+            is one of the most famous and beautiful examples of a fractal in mathematics. 
+            Named after mathematician Benoit Mandelbrot, who studied and popularized it, this set has captivated mathematicians, 
+            artists, and enthusiasts alike with its infinite complexity and self-similar patterns.
+        </p>
+        <p>
+            At its core, the Mandelbrot Set is defined by a simple equation: z<sub>n+1</sub> = z<sub>n</sub>² + c, where z and c are 
+            complex numbers. Starting with z₀ = 0, we iterate this equation. If the sequence remains bounded (doesn't escape to infinity), 
+            then the complex number c is part of the Mandelbrot Set.
+        </p>
+        
+        <h2>Exploring the Infinite</h2>
+        <p>
+            What makes the Mandelbrot Set fascinating is its <span class="highlight">infinite complexity</span>. As you zoom into the 
+            boundary of the set, you discover an endless world of intricate patterns, spirals, and miniature copies of the entire set. 
+            This property of self-similarity at different scales is a hallmark of fractals.
+        </p>
+        <p>
+            The interactive explorer above allows you to navigate this mathematical landscape. You can zoom in to reveal finer details, 
+            pan around to explore different regions, and even jump to interesting locations that showcase particularly beautiful or 
+            mathematically significant features of the set.
+        </p>
+        
+        <h2>Mathematical Significance</h2>
+        <p>
+            Beyond its aesthetic appeal, the Mandelbrot Set has profound mathematical implications. It serves as a bridge between 
+            complex dynamics, geometry, and topology. The boundary of the set is a fractal with a dimension of 2, making it one of 
+            the most complex objects in mathematics.
+        </p>
+        <p>
+            The study of the Mandelbrot Set and related fractals has applications in various fields, including computer graphics, 
+            antenna design, data compression, and even in modeling natural phenomena like coastlines, clouds, and mountain ranges.
+        </p>
+    </section>
+    
     <script>
         class MandelbrotExplorer {
             constructor() {
@@ -426,7 +493,6 @@
                 
                 this.init();
             }
-
             init() {
                 this.resizeCanvas();
                 this.setupEventListeners();
@@ -437,16 +503,15 @@
                     this.render();
                 });
             }
-
             resizeCanvas() {
-                // Set canvas size to match window
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
+                // Set canvas size to match container
+                const container = document.getElementById('canvas-container');
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientHeight;
                 
                 // Clear cache when resizing
                 this.tileCache.clear();
             }
-
             setupEventListeners() {
                 // Mouse events
                 this.canvas.addEventListener('mousedown', (e) => this.startDrag(e));
@@ -524,13 +589,11 @@
                     this.exportImage();
                 });
             }
-
             startDrag(e) {
                 this.isDragging = true;
                 this.lastX = e.clientX;
                 this.lastY = e.clientY;
             }
-
             drag(e) {
                 if (!this.isDragging) return;
                 
@@ -547,11 +610,9 @@
                 this.updateInfo();
                 this.scheduleRender();
             }
-
             endDrag() {
                 this.isDragging = false;
             }
-
             pan(direction) {
                 const moveAmount = 0.5 / this.zoom;
                 
@@ -573,7 +634,6 @@
                 this.updateInfo();
                 this.render();
             }
-
             zoomAt(x, y, factor) {
                 const scale = 4 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
                 const worldX = this.centerX + (x - this.canvas.width / 2) * scale;
@@ -589,13 +649,11 @@
                 this.updateInfo();
                 this.render();
             }
-
             updateMaxIterations() {
                 // Adjust iterations based on zoom and quality level
                 const baseIterations = 50 + (this.qualityLevel * 30);
                 this.maxIterations = Math.min(1000, Math.max(50, Math.floor(baseIterations + Math.log2(this.zoom) * 50)));
             }
-
             resetView() {
                 this.centerX = -0.5;
                 this.centerY = 0;
@@ -605,7 +663,6 @@
                 this.updateInfo();
                 this.render();
             }
-
             navigateToLocation(location) {
                 this.centerX = location.x;
                 this.centerY = location.y;
@@ -616,18 +673,15 @@
                 this.showNotification(`Navigated to ${location.name}`);
                 this.render();
             }
-
             clearCache() {
                 this.tileCache.clear();
             }
-
             scheduleRender() {
                 if (this.renderTimeout) {
                     clearTimeout(this.renderTimeout);
                 }
                 this.renderTimeout = setTimeout(() => this.render(), 100);
             }
-
             render() {
                 // Cancel any ongoing render
                 this.cancelRender = true;
@@ -659,7 +713,6 @@
                 this.isRendering = true;
                 this.renderNextTile();
             }
-
             renderNextTile() {
                 if (!this.isRendering || this.cancelRender) {
                     this.isRendering = false;
@@ -697,13 +750,11 @@
                     requestAnimationFrame(() => this.renderNextTile());
                 });
             }
-
             isTileVisible(tileX, tileY) {
                 const x = tileX * this.tileSize;
                 const y = tileY * this.tileSize;
                 return x < this.canvas.width && y < this.canvas.height;
             }
-
             renderTile(tileX, tileY, callback) {
                 const tileWidth = Math.min(this.tileSize, this.canvas.width - tileX * this.tileSize);
                 const tileHeight = Math.min(this.tileSize, this.canvas.height - tileY * this.tileSize);
@@ -757,7 +808,6 @@
                 // Callback to continue rendering
                 callback();
             }
-
             mandelbrot(cx, cy) {
                 let x = 0;
                 let y = 0;
@@ -772,7 +822,6 @@
                 
                 return iterations;
             }
-
             getColor(iterations) {
                 if (iterations === this.maxIterations) {
                     return { r: 0, g: 0, b: 0 };
@@ -814,7 +863,6 @@
                         return { r: 255, g: 255, b: 255 };
                 }
             }
-
             hslToRgb(h, s, l) {
                 h /= 360;
                 s /= 100;
@@ -847,7 +895,6 @@
                     b: Math.round(b * 255)
                 };
             }
-
             exportImage() {
                 // Disable export button during export
                 const exportBtn = document.getElementById('exportBtn');
@@ -883,7 +930,6 @@
                 // Show notification
                 this.showNotification('Image exported successfully!');
             }
-
             showNotification(message) {
                 this.notification.textContent = message;
                 this.notification.classList.add('show');
@@ -892,7 +938,6 @@
                     this.notification.classList.remove('show');
                 }, 3000);
             }
-
             updateInfo() {
                 document.getElementById('zoomLevel').textContent = this.zoom.toFixed(2) + 'x';
                 document.getElementById('centerCoords').textContent = 
@@ -900,7 +945,6 @@
                 document.getElementById('iterations').textContent = this.maxIterations;
             }
         }
-
         // Initialize the explorer when the page loads
         const explorer = new MandelbrotExplorer();
     </script>
