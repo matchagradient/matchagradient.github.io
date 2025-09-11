@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barnsley Fern Explorer</title>
@@ -317,7 +318,7 @@
                 
                 const scale = 10 / (this.zoom * Math.min(this.canvas.width, this.canvas.height));
                 this.centerX -= dx * scale;
-                this.centerY -= dy * scale;
+                this.centerY += dy * scale;
                 
                 this.lastX = e.clientX;
                 this.lastY = e.clientY;
