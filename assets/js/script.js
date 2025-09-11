@@ -57,11 +57,14 @@ const cube = document.getElementById('cube');
             });
         });
         // Initialize
-        createFloatingDots();
-        // Event listeners
-        document.addEventListener('mousemove', handleMouseMove);
-        // Start animation
-        animate();
+        if (document.body.classList.contains("enable-dots")) {
+            createFloatingDots();
+            // Start animation
+            animate();
+            // Event listeners
+            document.addEventListener('mousemove', handleMouseMove);
+        }
+
         // Handle window resize
         window.addEventListener('resize', () => {
             mouseX = window.innerWidth / 2;
