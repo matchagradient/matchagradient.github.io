@@ -27,7 +27,7 @@ const dotGeometry = new THREE.BoxGeometry(0.08, 0.08, 0.08);
 const dotMaterial = new THREE.MeshBasicMaterial({
     color: 0x000000,
     transparent: true, 
-    opacity: 0.1,
+    opacity: 0.08,
 });
 
 for (let x = 0; x < dotsPerDimension; x++) {
