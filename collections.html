@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
     <meta charset="UTF-8">
@@ -13,190 +14,177 @@
 
 <body>
 
-<!-- Navigation -->
-<nav>
-    <div class="nav-container">
-        <div class="logo">Mike Wang</div>
-        <div class="nav-content">
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-            </ul>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Mike Wang</div>
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                </ul>
+            </div>
+            <button class="mobile-toggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
         </div>
-        <button class="mobile-toggle">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </button>
-    </div>
-</nav>
+    </nav>
 
-<div id="container-cube"></div>
+    <div id="container-cube"></div>
 
-<!-- Section -->
-<section id="current-projects" class="section">
-    <div class="container">
-        <h2 class="section-title">Experiments</h2>
-        <div class="projects-grid">
-            <div class="project-item">
-                <h3>AI-Powered Drone Navigation</h3>
-                <div class="project-meta">
-                    <span class="project-tag">Computer Vision</span>
-                    <span class="project-tag">Robotics</span>
-                </div>
-                <p>Developing an autonomous drone navigation system using computer vision and machine learning. The project focuses on obstacle detection, path planning, and real-time decision making for safe flight operations.</p>
-                <div class="project-links">
-                    <a href="#" class="project-link">View Details</a>
-                    <a href="#" class="project-link">GitHub</a>
-                </div>
-            </div>
-            <div class="project-item">
-                <h3>Software Defined Radio Experiments</h3>
-                <div class="project-meta">
-                    <span class="project-tag">SDR</span>
-                    <span class="project-tag">Signal Processing</span>
-                </div>
-                <p>Exploring the world of software defined radio with focus on signal analysis, frequency hopping detection, and developing custom protocols for IoT applications.</p>
-                <div class="project-links">
-                    <a href="#" class="project-link">View Details</a>
-                    <a href="#" class="project-link">GitHub</a>
-                </div>
-            </div>
-            <div class="project-item">
-                <h3>Open Source Security Tools</h3>
-                <div class="project-meta">
-                    <span class="project-tag">Security</span>
-                    <span class="project-tag">Cryptography</span>
-                </div>
-                <p>Contributing to and developing open source security tools, with particular focus on PKI management, certificate automation, and cryptographic system monitoring.</p>
-                <div class="project-links">
-                    <a href="#" class="project-link">View Details</a>
-                    <a href="#" class="project-link">GitHub</a>
-                </div>
+    <!-- Section -->
+    <section id="current-projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Experiments</h2>
+            <div class="projects-grid">
+                <a href="https://github.com/matchagradient/certificate-discovery" class="project-item-link">
+                    <div class="project-item">
+                        <h3>SSL certificate finder</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Security</span>
+                            <span class="project-tag">Python</span>
+                        </div>
+                        <p>Tool that discovers SSL/TLS certificates across filesystems and stores detailed insights in a
+                            SQLite database for analysis.</p>
+                        <div class="project-links">
+                            <span class="project-link">GitHub</span> <!-- Changed to span -->
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Section -->
-<section id="current-projects" class="section">
-    <div class="container">
-        <h2 class="section-title">Fractals</h2>
-        <div class="projects-grid">
-            <a href="/project-pages/fractal-mandelbrot.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-fractal-mandelbrot.png" alt="Mandelbrot Set Preview" class="project-thumb">
-                    <h3>Mandelbrot Set</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Fractals</span>
-                        <span class="project-tag">Mathematics</span>
+    <!-- Section -->
+    <section id="current-projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Fractals</h2>
+            <div class="projects-grid">
+                <a href="/project-pages/fractal-mandelbrot.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-fractal-mandelbrot.png" alt="Mandelbrot Set Preview"
+                            class="project-thumb">
+                        <h3>Mandelbrot Set</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Fractals</span>
+                            <span class="project-tag">Mathematics</span>
+                        </div>
+                        <p>Explore the Mandelbrot set with interactive controls.</p>
                     </div>
-                    <p>Explore the Mandelbrot set with interactive controls.</p>
-                </div>
-            </a>
-            <a href="/project-pages/fractal-lyapunov.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-fractal-lyapunov_aaab.png" alt="Lyapunov Fractal Preview" class="project-thumb">
-                    <h3>Lyapunov Fractals</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Fractals</span>
-                        <span class="project-tag">Mathematics</span>
+                </a>
+                <a href="/project-pages/fractal-lyapunov.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-fractal-lyapunov_aaab.png" alt="Lyapunov Fractal Preview"
+                            class="project-thumb">
+                        <h3>Lyapunov Fractals</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Fractals</span>
+                            <span class="project-tag">Mathematics</span>
+                        </div>
+                        <p>Explore the Lyapunov fractals with interactive controls.</p>
                     </div>
-                    <p>Explore the Lyapunov fractals with interactive controls.</p>
-                </div>
-            </a>
-            <a href="/project-pages/fractal-julia-sets.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-fractal-julia-sets.png" alt="Julia Sets Preview" class="project-thumb">
-                    <h3>Julia Sets</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Fractals</span>
-                        <span class="project-tag">Mathematics</span>
+                </a>
+                <a href="/project-pages/fractal-julia-sets.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-fractal-julia-sets.png" alt="Julia Sets Preview"
+                            class="project-thumb">
+                        <h3>Julia Sets</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Fractals</span>
+                            <span class="project-tag">Mathematics</span>
+                        </div>
+                        <p>Explore the Julia sets with different parameters.</p>
                     </div>
-                    <p>Explore the Julia sets with different parameters.</p>
-                </div>
-              </a>
-              <a href="/project-pages/fractal-sierpinski.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-fractal-sierpinski_triangle.png" alt="Sierpinski Triangle Preview" class="project-thumb">
-                    <h3>Sierpinski Triangle</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Fractals</span>
-                        <span class="project-tag">Mathematics</span>
+                </a>
+                <a href="/project-pages/fractal-sierpinski.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-fractal-sierpinski_triangle.png" alt="Sierpinski Triangle Preview"
+                            class="project-thumb">
+                        <h3>Sierpinski Triangle</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Fractals</span>
+                            <span class="project-tag">Mathematics</span>
+                        </div>
+                        <p>Explore the Sierpinski triangle.</p>
                     </div>
-                    <p>Explore the Sierpinski triangle.</p>
-                </div>
-              </a>
-              <a href="/project-pages/fractal-barnsley-fern.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-fractal-barnsley-fern.png" alt="Barnsley Fern Preview" class="project-thumb">
-                    <h3>Barnsley Fern</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Fractals</span>
-                        <span class="project-tag">Mathematics</span>
+                </a>
+                <a href="/project-pages/fractal-barnsley-fern.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-fractal-barnsley-fern.png" alt="Barnsley Fern Preview"
+                            class="project-thumb">
+                        <h3>Barnsley Fern</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Fractals</span>
+                            <span class="project-tag">Mathematics</span>
+                        </div>
+                        <p>Explore the Barnsley fern.</p>
                     </div>
-                    <p>Explore the Barnsley fern.</p>
-                </div>
-              </a>
-              <a href="/project-pages/fractal-trees.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-fractal_tree.png" alt="Trees Preview" class="project-thumb">
-                    <h3>Frarctal Trees</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Fractals</span>
-                        <span class="project-tag">Mathematics</span>
+                </a>
+                <a href="/project-pages/fractal-trees.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-fractal_tree.png" alt="Trees Preview" class="project-thumb">
+                        <h3>Frarctal Trees</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Fractals</span>
+                            <span class="project-tag">Mathematics</span>
+                        </div>
+                        <p>Explore the trees.</p>
                     </div>
-                    <p>Explore the trees.</p>
-                </div>
-              </a>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Section -->
-<section id="current-projects" class="section">
-    <div class="container">
-        <h2 class="section-title">SVG Tools</h2>
-        <div class="projects-grid">
-            <a href="/project-pages/svg-cubes.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-thumbnail-svg-cubes.svg" alt="SVG Cubes Preview" class="project-thumb">
-                    <h3>SVG Maker - 3D Cubes</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Computer Graphics</span>
-                        <span class="project-tag">Web technologies</span>
+    <!-- Section -->
+    <section id="current-projects" class="section">
+        <div class="container">
+            <h2 class="section-title">SVG Tools</h2>
+            <div class="projects-grid">
+                <a href="/project-pages/svg-cubes.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-thumbnail-svg-cubes.svg" alt="SVG Cubes Preview"
+                            class="project-thumb">
+                        <h3>SVG Maker - 3D Cubes</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Computer Graphics</span>
+                            <span class="project-tag">Web technologies</span>
+                        </div>
+                        <p>An SVG generator with parametric controls for color, opacity, and geometry to make cubes.</p>
                     </div>
-                    <p>An SVG generator with parametric controls for color, opacity, and geometry to make cubes.</p>
-                </div>
-            </a>
-            <a href="/project-pages/svg-spheres.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-thumbnail-svg-spheres.svg" alt="SVG Spheres Preview" class="project-thumb">
-                    <h3>SVG Maker - Spheres</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Computer Graphics</span>
-                        <span class="project-tag">Web technologies</span>
+                </a>
+                <a href="/project-pages/svg-spheres.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-thumbnail-svg-spheres.svg" alt="SVG Spheres Preview"
+                            class="project-thumb">
+                        <h3>SVG Maker - Spheres</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Computer Graphics</span>
+                            <span class="project-tag">Web technologies</span>
+                        </div>
+                        <p>An SVG generator with parametric controls for color, opacity, and geometry to make colorful
+                            spheres.</p>
                     </div>
-                    <p>An SVG generator with parametric controls for color, opacity, and geometry to make colorful spheres.</p>
-                </div>
-            </a>
-            <a href="/project-pages/svg-octahedrons.html" class="project-item-link">
-                <div class="project-item">
-                    <img src="/assets/img/project-thumbnail-svg-octahedrons.svg" alt="SVG Octahedron Preview" class="project-thumb">
-                    <h3>SVG Maker - Octahedrons</h3>
-                    <div class="project-meta">
-                        <span class="project-tag">Computer Graphics</span>
-                        <span class="project-tag">Web technologies</span>
+                </a>
+                <a href="/project-pages/svg-octahedrons.html" class="project-item-link">
+                    <div class="project-item">
+                        <img src="/assets/img/project-thumbnail-svg-octahedrons.svg" alt="SVG Octahedron Preview"
+                            class="project-thumb">
+                        <h3>SVG Maker - Octahedrons</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Computer Graphics</span>
+                            <span class="project-tag">Web technologies</span>
+                        </div>
+                        <p>An SVG generator with parametric controls for color, opacity, and geometry to make colorful
+                            octahedrons.</p>
                     </div>
-                    <p>An SVG generator with parametric controls for color, opacity, and geometry to make colorful octahedrons.</p>
-                </div>
-              </a>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
-
-
+    </section>
 
 </body>
+
 </html>
